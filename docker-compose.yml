@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: fastapi_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: N7eqrd4HSPU18
+      POSTGRES_DB: authentik
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d authentik"]
+      interval: 10s
+      retries: 5
+      start_period: 15s
+      timeout: 5s
+
+volumes:
+  postgres_data:
