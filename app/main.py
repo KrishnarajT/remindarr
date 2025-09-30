@@ -6,8 +6,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-import db.config_db as config_db
-from router.goldRoutes import router as gold_router
+import app.db.config_db as config_db
+from app.router.goldRoutes import router as gold_router
 
 
 @asynccontextmanager
@@ -45,8 +45,7 @@ async def auth_check(request: Request):
 
     return {"status": "ok", "user_email": user_email, "user_sub": user_sub, "user_name": user_name,
             "all_headers": dict(request.headers)  # optional: helps debug
-            }
-# things to do next
+            }  # things to do next
 # 1. do some check that we trust the user email only when its coming from our api-gateway
 # 2. deny any request without that private key from api-gateway
 # 3. use the user sub or email in our db queries and stuff

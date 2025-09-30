@@ -1,24 +1,33 @@
 version: "3.9"
 
 services:
+  app:
+    build: .
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    command: uvicorn app.main:app --host ${API_HOST} --port ${API_PORT} --reload
+
   db:
     image: postgres:16
-    container_name: fastapi_postgres
+    container_name: remindarr_postgres
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: N7eqrd4HSPU18
-      POSTGRES_DB: authentik
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d authentik"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d remindarr"]
       interval: 10s
       retries: 5
       start_period: 15s
       timeout: 5s
-
-volumes:
-  postgres_data:

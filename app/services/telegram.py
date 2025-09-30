@@ -1,5 +1,5 @@
+import requests
 def send_message(bot_token: str, chat_id: str, message: str) -> None:
-    import requests
 
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
     payload = {

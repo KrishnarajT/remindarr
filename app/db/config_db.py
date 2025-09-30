@@ -5,10 +5,13 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine, async_sessi
 from sqlmodel import SQLModel
 from sqlmodel.ext.asyncio.session import AsyncSession  # <- use SQLModel's AsyncSession type
 
-from constants.constants import DATABASE_URL, DB_SCHEMA
+from app.constants.constants import Settings
+
+# create the db url from settings where there is no db url
+db_url = f'postgresql+asyncpg://{Settings().db_user}:{Settings().db_password}@{Settings().db_host}:{Settings().db_port}/{Settings().db_name}'
 
 # Create async engine and sessionmaker
-engine: AsyncEngine = create_async_engine(DATABASE_URL, echo=True, future=True)
+engine: AsyncEngine = create_async_engine(db_url, echo=True, future=True)
 async_session = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
 
 
@@ -21,7 +24,7 @@ async def init_db() -> None:
     """
     async with engine.begin() as conn:
         # create schema if not exists
-        await conn.exec_driver_sql(f"CREATE SCHEMA IF NOT EXISTS {DB_SCHEMA}")
+        await conn.exec_driver_sql(f"CREATE SCHEMA IF NOT EXISTS {Settings().db_schema}")
         # create tables in the engine's metadata context
         await conn.run_sync(SQLModel.metadata.create_all)
 
