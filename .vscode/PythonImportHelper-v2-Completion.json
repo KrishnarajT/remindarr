@@ -1,0 +1,527 @@
+[
+    {
+        "label": "runpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "runpy",
+        "description": "runpy",
+        "detail": "runpy",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "site",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "site",
+        "description": "site",
+        "detail": "site",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "BaseSettings",
+        "importPath": "pydantic_settings",
+        "description": "pydantic_settings",
+        "isExtraImport": true,
+        "detail": "pydantic_settings",
+        "documentation": {}
+    },
+    {
+        "label": "SettingsConfigDict",
+        "importPath": "pydantic_settings",
+        "description": "pydantic_settings",
+        "isExtraImport": true,
+        "detail": "pydantic_settings",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "AsyncGenerator",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "create_async_engine",
+        "importPath": "sqlalchemy.ext.asyncio",
+        "description": "sqlalchemy.ext.asyncio",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "AsyncEngine",
+        "importPath": "sqlalchemy.ext.asyncio",
+        "description": "sqlalchemy.ext.asyncio",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "async_sessionmaker",
+        "importPath": "sqlalchemy.ext.asyncio",
+        "description": "sqlalchemy.ext.asyncio",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "SQLModel",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "SQLModel",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "AsyncSession",
+        "importPath": "sqlmodel.ext.asyncio.session",
+        "description": "sqlmodel.ext.asyncio.session",
+        "isExtraImport": true,
+        "detail": "sqlmodel.ext.asyncio.session",
+        "documentation": {}
+    },
+    {
+        "label": "Settings",
+        "importPath": "app.constants.constants",
+        "description": "app.constants.constants",
+        "isExtraImport": true,
+        "detail": "app.constants.constants",
+        "documentation": {}
+    },
+    {
+        "label": "Settings",
+        "importPath": "app.constants.constants",
+        "description": "app.constants.constants",
+        "isExtraImport": true,
+        "detail": "app.constants.constants",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "app.constants.constants",
+        "description": "app.constants.constants",
+        "isExtraImport": true,
+        "detail": "app.constants.constants",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "app.db.config_db",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "app.db.config_db",
+        "description": "app.db.config_db",
+        "detail": "app.db.config_db",
+        "documentation": {}
+    },
+    {
+        "label": "get_session",
+        "importPath": "app.db.config_db",
+        "description": "app.db.config_db",
+        "isExtraImport": true,
+        "detail": "app.db.config_db",
+        "documentation": {}
+    },
+    {
+        "label": "send_message",
+        "importPath": "app.services.telegram",
+        "description": "app.services.telegram",
+        "isExtraImport": true,
+        "detail": "app.services.telegram",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "app.utils.logging_utils",
+        "description": "app.utils.logging_utils",
+        "isExtraImport": true,
+        "detail": "app.utils.logging_utils",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "asynccontextmanager",
+        "importPath": "contextlib",
+        "description": "contextlib",
+        "isExtraImport": true,
+        "detail": "contextlib",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
+        "isExtraImport": true,
+        "detail": "fastapi.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "app.router.notification_router",
+        "description": "app.router.notification_router",
+        "isExtraImport": true,
+        "detail": "app.router.notification_router",
+        "documentation": {}
+    },
+    {
+        "label": "bin_dir",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "bin_dir = os.path.dirname(abs_file)\nbase = bin_dir[: -len(\"Scripts\") - 1]  # strip away the bin part from the __file__, plus the path separator\n# prepend bin to PATH (this file is inside the bin directory)\nos.environ[\"PATH\"] = os.pathsep.join([bin_dir, *os.environ.get(\"PATH\", \"\").split(os.pathsep)])\nos.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\nos.environ[\"VIRTUAL_ENV_PROMPT\"] = \"backend\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\\\Lib\\\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "base",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "base = bin_dir[: -len(\"Scripts\") - 1]  # strip away the bin part from the __file__, plus the path separator\n# prepend bin to PATH (this file is inside the bin directory)\nos.environ[\"PATH\"] = os.pathsep.join([bin_dir, *os.environ.get(\"PATH\", \"\").split(os.pathsep)])\nos.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\nos.environ[\"VIRTUAL_ENV_PROMPT\"] = \"backend\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\\\Lib\\\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"PATH\"]",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "os.environ[\"PATH\"] = os.pathsep.join([bin_dir, *os.environ.get(\"PATH\", \"\").split(os.pathsep)])\nos.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\nos.environ[\"VIRTUAL_ENV_PROMPT\"] = \"backend\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\\\Lib\\\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"VIRTUAL_ENV\"]",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "os.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\nos.environ[\"VIRTUAL_ENV_PROMPT\"] = \"backend\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\\\Lib\\\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"VIRTUAL_ENV_PROMPT\"]",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "os.environ[\"VIRTUAL_ENV_PROMPT\"] = \"backend\" or os.path.basename(base)  # noqa: SIM222\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\\\Lib\\\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "prev_length",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "prev_length = len(sys.path)\nfor lib in \"..\\\\Lib\\\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "sys.path[:]",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "sys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "sys.real_prefix",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "sys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "sys.prefix",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "sys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "Settings",
+        "kind": 6,
+        "importPath": "app.constants.constants",
+        "description": "app.constants.constants",
+        "peekOfCode": "class Settings(BaseSettings):\n    db_user: str\n    db_password: str\n    db_name: str\n    db_host: str\n    db_port: int\n    db_schema: str = \"public\"\n    bot_token: str\n    chat_id: str\n    model_config = SettingsConfigDict()",
+        "detail": "app.constants.constants",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "kind": 5,
+        "importPath": "app.constants.constants",
+        "description": "app.constants.constants",
+        "peekOfCode": "settings = Settings()",
+        "detail": "app.constants.constants",
+        "documentation": {}
+    },
+    {
+        "label": "PricePerGramResponse",
+        "kind": 6,
+        "importPath": "app.constants.schemas",
+        "description": "app.constants.schemas",
+        "peekOfCode": "class PricePerGramResponse(BaseModel):\n    price_per_gram: float = Field(..., alias=\"pricePerGram\")\n    class Config:\n        # allow both snake_case (internal) and camelCase (external)\n        populate_by_name = True\n        orm_mode = True",
+        "detail": "app.constants.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "db_url",
+        "kind": 5,
+        "importPath": "app.db.config_db",
+        "description": "app.db.config_db",
+        "peekOfCode": "db_url = f'postgresql+asyncpg://{Settings().db_user}:{Settings().db_password}@{Settings().db_host}:{Settings().db_port}/{Settings().db_name}'\n# Create async engine and sessionmaker\nengine: AsyncEngine = create_async_engine(db_url, echo=True, future=True)\nasync_session = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)\nasync def init_db() -> None:\n    \"\"\"\n    One-time DB initialization:\n    - Create schema if missing\n    - Create all tables from SQLModel metadata\n    Call this once during app startup (lifespan).",
+        "detail": "app.db.config_db",
+        "documentation": {}
+    },
+    {
+        "label": "async_session",
+        "kind": 5,
+        "importPath": "app.db.config_db",
+        "description": "app.db.config_db",
+        "peekOfCode": "async_session = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)\nasync def init_db() -> None:\n    \"\"\"\n    One-time DB initialization:\n    - Create schema if missing\n    - Create all tables from SQLModel metadata\n    Call this once during app startup (lifespan).\n    \"\"\"\n    async with engine.begin() as conn:\n        # create schema if not exists",
+        "detail": "app.db.config_db",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 6,
+        "importPath": "app.db.models",
+        "description": "app.db.models",
+        "peekOfCode": "class Base(SQLModel):\n    __table_args__ = {\"schema\": Settings().db_schema}\nclass Reminders(Base, table=True):\n    __tablename__ = \"reminders\"\n    # frontend uses string id — use UUID4 string here\n    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True, index=True)\n    # These are optional in Python model because the DB will fill them\n    created_at: Optional[datetime] = Field(default=None,\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False, ), )\n    updated_at: Optional[datetime] = Field(default=None,",
+        "detail": "app.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Reminders",
+        "kind": 6,
+        "importPath": "app.db.models",
+        "description": "app.db.models",
+        "peekOfCode": "class Reminders(Base, table=True):\n    __tablename__ = \"reminders\"\n    # frontend uses string id — use UUID4 string here\n    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True, index=True)\n    # These are optional in Python model because the DB will fill them\n    created_at: Optional[datetime] = Field(default=None,\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False, ), )\n    updated_at: Optional[datetime] = Field(default=None,\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False, ), )\n    # active flag for soft delete",
+        "detail": "app.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "app.router.notification_router",
+        "description": "app.router.notification_router",
+        "peekOfCode": "router = APIRouter(prefix=\"/notifications\", tags=[\"notifications\"])\n@router.get(\"/test\")\nasync def test_notification(db: Session = Depends(get_session)):\n    try:\n        send_message(settings.bot_token, settings.chat_id, \"Hi from Remindarr!\")\n        return {\"status\": \"success\", \"message\": \"Test notification sent\"}\n    except Exception as e:\n        logger.info(f\"Failed to send test notification: {e}\")\n        return {\"status\": \"error\", \"message\": str(e)}",
+        "detail": "app.router.notification_router",
+        "documentation": {}
+    },
+    {
+        "label": "send_message",
+        "kind": 2,
+        "importPath": "app.services.telegram",
+        "description": "app.services.telegram",
+        "peekOfCode": "def send_message(bot_token: str, chat_id: str, message: str) -> None:\n    url = f\"https://api.telegram.org/bot{bot_token}/sendMessage\"\n    payload = {\n        \"chat_id\": chat_id,\n        \"text\": message\n    }\n    response = requests.post(url, json=payload)\n    response.raise_for_status()  # Raise an error for bad responses",
+        "detail": "app.services.telegram",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "app.utils.logging_utils",
+        "description": "app.utils.logging_utils",
+        "peekOfCode": "logger = logging.getLogger(\"uvicorn.error\")\n# let default be INFO\nlogger.setLevel(logging.INFO)",
+        "detail": "app.utils.logging_utils",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI()\nimport app.db.config_db as config_db\nfrom app.router.notification_router import router as notification_router\n@asynccontextmanager\nasync def lifespan(app: FastAPI):\n    await config_db.init_db()\n    try:\n        yield\n    finally:\n        await config_db.engine.dispose()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI(lifespan=lifespan)\n# CORS - allow your frontend (adjust origins)\napp.add_middleware(CORSMiddleware,\n                   allow_origins=[\"http://localhost:3000\", \"http://127.0.0.1:3000\", \"http://your-nas-ip:port\"],\n                   allow_credentials=True, allow_methods=[\"*\"], allow_headers=[\"*\"], )\n# Mount router under /api so frontend's API_BASE_URL + paths match\napp.include_router(notification_router, prefix=\"/api\")\n# basic healthcheck\n@app.get(\"/health\")\nasync def health_check():",
+        "detail": "main",
+        "documentation": {}
+    }
+]

@@ -16,3 +16,5 @@ class Settings(BaseSettings):
     chat_id: str
 
     model_config = SettingsConfigDict()
+    
+settings = Settings()

@@ -1,4 +1,3 @@
-# main.py (snippet)
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
@@ -7,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 import app.db.config_db as config_db
-from app.router.goldRoutes import router as gold_router
+from app.router.notification_router import router as notification_router
 
 
 @asynccontextmanager
@@ -27,7 +26,7 @@ app.add_middleware(CORSMiddleware,
                    allow_credentials=True, allow_methods=["*"], allow_headers=["*"], )
 
 # Mount router under /api so frontend's API_BASE_URL + paths match
-app.include_router(gold_router, prefix="/api")
+app.include_router(notification_router, prefix="/api")
 
 
 # basic healthcheck
