@@ -171,9 +171,9 @@ def get_notion_database(token: str, db_id: str) -> tuple[bool, Optional[dict]]:
 
 
 def query_notion_database(
-    token: str, db_id: str, status_prop: str = None
+    token: str, db_id: str, status_prop: str = None, status_prop_type: str = None
 ) -> tuple[bool, list]:
-    """Query Notion database pages."""
+    """Query Notion database pages with optional status filtering."""
     headers = {
         "Authorization": f"Bearer {token}",
         "Notion-Version": "2022-06-28",
@@ -183,7 +183,20 @@ def query_notion_database(
     body = {}
     # Filter for incomplete tasks if status property is provided
     if status_prop:
-        body["filter"] = {"property": status_prop, "checkbox": {"equals": False}}
+        if status_prop_type == "checkbox":
+            # For checkbox: False = not done
+            body["filter"] = {"property": status_prop, "checkbox": {"equals": False}}
+        elif status_prop_type == "select" or status_prop_type == "status":
+            # For select/status: exclude "Done" or "Completed"
+            body["filter"] = {
+                "and": [
+                    {"property": status_prop, "select": {"does_not_equal": "Done"}},
+                    {
+                        "property": status_prop,
+                        "select": {"does_not_equal": "Completed"},
+                    },
+                ]
+            }
 
     try:
         resp = requests.post(
@@ -361,6 +374,7 @@ async def handle_notion_flow(
 ):
     """Handle Notion integration flow."""
     step = state.step
+    chat_id_str = str(chat_id)  # Convert for database operations
 
     # STEP 0: Menu (user has token)
     if step == NotionStep.MENU.value:
@@ -453,6 +467,7 @@ async def handle_notion_flow(
             user.notion_enabled = True
             db.add(user)
             db.commit()
+            db.refresh(user)  # Refresh to get updated data
 
             notion_name = user_info.get("name") or "your Notion account"
             send_message(
@@ -510,6 +525,9 @@ async def handle_notion_flow(
 
         state.data["current_db_id"] = db_id
         state.data["properties"] = prop_names
+        state.data["property_types"] = {
+            name: prop.get("type") for name, prop in properties.items()
+        }
         state.step = NotionStep.NAME_PROP.value
 
         props_text = "\n".join([f"• {p}" for p in prop_names])
@@ -625,6 +643,7 @@ async def handle_notion_flow(
 
             db.add(user)
             db.commit()
+            db.refresh(user)  # Refresh to get updated data
 
         except Exception as e:
             logger.error(f"Failed to save Notion mapping for user {chat_id}: {e}")
@@ -684,7 +703,7 @@ async def handle_notion_flow(
                 reminder = Reminders(
                     reminder_name=name_val,
                     reminder_content=name_val,
-                    chat_id=chat_id,
+                    chat_id=chat_id_str,  # Use string version
                     source="notion" if time_val else "user",
                     notion_page_id=page.get("id"),
                 )
@@ -736,6 +755,7 @@ async def handle_notion_flow(
             user.notion_db_mappings = mappings
             db.add(user)
             db.commit()
+            db.refresh(user)  # Refresh to get updated data
 
             send_message(
                 settings.bot_token,
@@ -769,6 +789,7 @@ async def handle_settings_flow(
         user.notion_enabled = not bool(user.notion_enabled)
         db.add(user)
         db.commit()
+        db.refresh(user)  # Refresh to get updated data
 
         status = "enabled" if user.notion_enabled else "disabled"
         send_message(settings.bot_token, chat_id, f"✅ Notion integration {status}.")
@@ -781,6 +802,7 @@ async def handle_settings_flow(
             user.notion_check_frequence = int(parts[1])
             db.add(user)
             db.commit()
+            db.refresh(user)  # Refresh to get updated data
             send_message(
                 settings.bot_token,
                 chat_id,
@@ -824,6 +846,7 @@ async def handle_settings_flow(
 async def handle_reminder_flow(chat_id: int, text: str, state: UserState, db: Session):
     """Handle reminder creation flow."""
     step = state.step
+    chat_id_str = str(chat_id)  # Convert for database operations
 
     # STEP 1: Name
     if step == ReminderStep.NAME.value:
@@ -919,7 +942,7 @@ async def handle_reminder_flow(chat_id: int, text: str, state: UserState, db: Se
                 reminder_content=text,
                 interval_minutes=interval_minutes,
                 next_trigger_at=next_trigger_at,
-                chat_id=chat_id,
+                chat_id=chat_id_str,  # Use string version
             )
             db.add(reminder)
             db.commit()
@@ -972,8 +995,11 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
 
         # Create or update user record
         user = await get_or_create_user(db, data)
-        chat_id = data["message"]["chat"]["id"]
+        chat_id = data["message"]["chat"]["id"]  # This is an int from Telegram
         text = data["message"].get("text", "").strip()
+
+        # Convert chat_id to string for consistency with database
+        chat_id_str = str(chat_id)
 
         if not text:
             return JSONResponse(content={"status": "ignored", "reason": "empty text"})
@@ -1022,7 +1048,7 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
     if text == "/list":
         clear_user_state(chat_id)
         try:
-            stmt = select(Reminders).where(Reminders.chat_id == chat_id)
+            stmt = select(Reminders).where(Reminders.chat_id == chat_id_str)
             reminders = db.exec(stmt).all()
 
             if not reminders:
