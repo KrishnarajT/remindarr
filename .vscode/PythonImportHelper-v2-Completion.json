@@ -84,6 +84,38 @@
         "documentation": {}
     },
     {
+        "label": "text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
         "label": "SQLModel",
         "importPath": "sqlmodel",
         "description": "sqlmodel",
@@ -267,30 +299,6 @@
         "description": "typing",
         "isExtraImport": true,
         "detail": "typing",
-        "documentation": {}
-    },
-    {
-        "label": "Column",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "DateTime",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "func",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
         "documentation": {}
     },
     {
@@ -634,7 +642,7 @@
         "kind": 2,
         "importPath": "app.db.config_db",
         "description": "app.db.config_db",
-        "peekOfCode": "def init_db() -> None:\n    \"\"\"\n    Initialize all SQLModel tables.\n    NOTE: Ensure that DB user already has access to the schema.\n    \"\"\"\n    SQLModel.metadata.create_all(engine)\ndef get_session():\n    \"\"\"\n    FastAPI dependency for a per-request session.\n    \"\"\"",
+        "peekOfCode": "def init_db() -> None:\n    \"\"\"\n    Initialize database schema and all SQLModel tables.\n    \"\"\"\n    # Get our target schema\n    schema = Settings().db_schema\n    # Create a raw connection to create the schema\n    with engine.begin() as conn:\n        # Check if schema exists\n        result = conn.execute(",
         "detail": "app.db.config_db",
         "documentation": {}
     },
@@ -652,7 +660,7 @@
         "kind": 5,
         "importPath": "app.db.config_db",
         "description": "app.db.config_db",
-        "peekOfCode": "db_url = (\n    f\"postgresql+psycopg2://\"\n    f\"{Settings().db_user}:{Settings().db_password}@\"\n    f\"{Settings().db_host}:{Settings().db_port}/{Settings().db_name}\"\n)\n# Create SQLModel engine (sync)\nengine = create_engine(db_url, echo=True, future=True)\ndef init_db() -> None:\n    \"\"\"\n    Initialize all SQLModel tables.",
+        "peekOfCode": "db_url = (\n    f\"postgresql+psycopg2://\"\n    f\"{Settings().db_user}:{Settings().db_password}@\"\n    f\"{Settings().db_host}:{Settings().db_port}/{Settings().db_name}\"\n)\n# Create SQLModel engine (sync)\nengine = create_engine(db_url, echo=True, future=True)\ndef init_db() -> None:\n    \"\"\"\n    Initialize database schema and all SQLModel tables.",
         "detail": "app.db.config_db",
         "documentation": {}
     },
@@ -661,7 +669,7 @@
         "kind": 5,
         "importPath": "app.db.config_db",
         "description": "app.db.config_db",
-        "peekOfCode": "engine = create_engine(db_url, echo=True, future=True)\ndef init_db() -> None:\n    \"\"\"\n    Initialize all SQLModel tables.\n    NOTE: Ensure that DB user already has access to the schema.\n    \"\"\"\n    SQLModel.metadata.create_all(engine)\ndef get_session():\n    \"\"\"\n    FastAPI dependency for a per-request session.",
+        "peekOfCode": "engine = create_engine(db_url, echo=True, future=True)\ndef init_db() -> None:\n    \"\"\"\n    Initialize database schema and all SQLModel tables.\n    \"\"\"\n    # Get our target schema\n    schema = Settings().db_schema\n    # Create a raw connection to create the schema\n    with engine.begin() as conn:\n        # Check if schema exists",
         "detail": "app.db.config_db",
         "documentation": {}
     },
