@@ -1,38 +1,27 @@
-# db.py
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlmodel import SQLModel
+# app/db/config_db.py
+from sqlmodel import SQLModel, create_engine, Session
 from app.constants.constants import Settings
 
-# Build DB URL from environment
+# Build the database URL
 db_url = (
     f"postgresql+psycopg2://"
     f"{Settings().db_user}:{Settings().db_password}@"
     f"{Settings().db_host}:{Settings().db_port}/{Settings().db_name}"
 )
 
-# Create the engine (synchronous)
+# Create SQLModel engine (sync)
 engine = create_engine(db_url, echo=True, future=True)
-
-# Session factory
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def init_db() -> None:
     """
-    Initialize the database (run once on startup):
-    - Creates schema if missing
-    - Creates all tables
+    Initialize all SQLModel tables.
+    NOTE: Ensure that DB user already has access to the schema.
     """
-    with engine.begin() as conn:
-        conn.execute(f"CREATE SCHEMA IF NOT EXISTS {Settings().db_schema}")
-        SQLModel.metadata.create_all(bind=conn)
+    SQLModel.metadata.create_all(engine)
 
 def get_session():
     """
-    FastAPI dependency — yields a database session per request.
+    FastAPI dependency for a per-request session.
     """
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+    with Session(engine) as session:
+        yield session

@@ -84,55 +84,23 @@
         "documentation": {}
     },
     {
+        "label": "SQLModel",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
         "label": "create_engine",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
         "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "Column",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "DateTime",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "func",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "sessionmaker",
-        "importPath": "sqlalchemy.orm",
-        "description": "sqlalchemy.orm",
-        "isExtraImport": true,
-        "detail": "sqlalchemy.orm",
+        "detail": "sqlmodel",
         "documentation": {}
     },
     {
         "label": "Session",
-        "importPath": "sqlalchemy.orm",
-        "description": "sqlalchemy.orm",
-        "isExtraImport": true,
-        "detail": "sqlalchemy.orm",
-        "documentation": {}
-    },
-    {
-        "label": "SQLModel",
         "importPath": "sqlmodel",
         "description": "sqlmodel",
         "isExtraImport": true,
@@ -221,6 +189,30 @@
         "documentation": {}
     },
     {
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
         "label": "APIRouter",
         "importPath": "fastapi",
         "description": "fastapi",
@@ -258,6 +250,14 @@
         "description": "fastapi",
         "isExtraImport": true,
         "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
         "documentation": {}
     },
     {
@@ -464,7 +464,7 @@
         "kind": 2,
         "importPath": "app.db.config_db",
         "description": "app.db.config_db",
-        "peekOfCode": "def init_db() -> None:\n    \"\"\"\n    Initialize the database (run once on startup):\n    - Creates schema if missing\n    - Creates all tables\n    \"\"\"\n    with engine.begin() as conn:\n        conn.execute(f\"CREATE SCHEMA IF NOT EXISTS {Settings().db_schema}\")\n        SQLModel.metadata.create_all(bind=conn)\ndef get_session():",
+        "peekOfCode": "def init_db() -> None:\n    \"\"\"\n    Initialize all SQLModel tables.\n    NOTE: Ensure that DB user already has access to the schema.\n    \"\"\"\n    SQLModel.metadata.create_all(engine)\ndef get_session():\n    \"\"\"\n    FastAPI dependency for a per-request session.\n    \"\"\"",
         "detail": "app.db.config_db",
         "documentation": {}
     },
@@ -473,7 +473,7 @@
         "kind": 2,
         "importPath": "app.db.config_db",
         "description": "app.db.config_db",
-        "peekOfCode": "def get_session():\n    \"\"\"\n    FastAPI dependency — yields a database session per request.\n    \"\"\"\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "peekOfCode": "def get_session():\n    \"\"\"\n    FastAPI dependency for a per-request session.\n    \"\"\"\n    with Session(engine) as session:\n        yield session",
         "detail": "app.db.config_db",
         "documentation": {}
     },
@@ -482,7 +482,7 @@
         "kind": 5,
         "importPath": "app.db.config_db",
         "description": "app.db.config_db",
-        "peekOfCode": "db_url = (\n    f\"postgresql+psycopg2://\"\n    f\"{Settings().db_user}:{Settings().db_password}@\"\n    f\"{Settings().db_host}:{Settings().db_port}/{Settings().db_name}\"\n)\n# Create the engine (synchronous)\nengine = create_engine(db_url, echo=True, future=True)\n# Session factory\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\ndef init_db() -> None:",
+        "peekOfCode": "db_url = (\n    f\"postgresql+psycopg2://\"\n    f\"{Settings().db_user}:{Settings().db_password}@\"\n    f\"{Settings().db_host}:{Settings().db_port}/{Settings().db_name}\"\n)\n# Create SQLModel engine (sync)\nengine = create_engine(db_url, echo=True, future=True)\ndef init_db() -> None:\n    \"\"\"\n    Initialize all SQLModel tables.",
         "detail": "app.db.config_db",
         "documentation": {}
     },
@@ -491,16 +491,7 @@
         "kind": 5,
         "importPath": "app.db.config_db",
         "description": "app.db.config_db",
-        "peekOfCode": "engine = create_engine(db_url, echo=True, future=True)\n# Session factory\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\ndef init_db() -> None:\n    \"\"\"\n    Initialize the database (run once on startup):\n    - Creates schema if missing\n    - Creates all tables\n    \"\"\"\n    with engine.begin() as conn:",
-        "detail": "app.db.config_db",
-        "documentation": {}
-    },
-    {
-        "label": "SessionLocal",
-        "kind": 5,
-        "importPath": "app.db.config_db",
-        "description": "app.db.config_db",
-        "peekOfCode": "SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\ndef init_db() -> None:\n    \"\"\"\n    Initialize the database (run once on startup):\n    - Creates schema if missing\n    - Creates all tables\n    \"\"\"\n    with engine.begin() as conn:\n        conn.execute(f\"CREATE SCHEMA IF NOT EXISTS {Settings().db_schema}\")\n        SQLModel.metadata.create_all(bind=conn)",
+        "peekOfCode": "engine = create_engine(db_url, echo=True, future=True)\ndef init_db() -> None:\n    \"\"\"\n    Initialize all SQLModel tables.\n    NOTE: Ensure that DB user already has access to the schema.\n    \"\"\"\n    SQLModel.metadata.create_all(engine)\ndef get_session():\n    \"\"\"\n    FastAPI dependency for a per-request session.",
         "detail": "app.db.config_db",
         "documentation": {}
     },
