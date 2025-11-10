@@ -480,6 +480,15 @@
         "documentation": {}
     },
     {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
         "label": "app.db.config_db",
         "kind": 6,
         "isExtraImport": true,
@@ -598,15 +607,6 @@
         "description": "app.utils.time_utils",
         "isExtraImport": true,
         "detail": "app.utils.time_utils",
-        "documentation": {}
-    },
-    {
-        "label": "requests",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "requests",
-        "description": "requests",
-        "detail": "requests",
         "documentation": {}
     },
     {
