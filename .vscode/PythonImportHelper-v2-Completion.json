@@ -971,11 +971,20 @@
         "documentation": {}
     },
     {
+        "label": "escape_markdown",
+        "kind": 2,
+        "importPath": "app.router.notification_router",
+        "description": "app.router.notification_router",
+        "peekOfCode": "def escape_markdown(text: str) -> str:\n    \"\"\"Escape special characters for Telegram Markdown.\"\"\"\n    if not text:\n        return \"\"\n    # Escape special markdown characters\n    special_chars = [\n        \"_\",\n        \"*\",\n        \"[\",\n        \"]\",",
+        "detail": "app.router.notification_router",
+        "documentation": {}
+    },
+    {
         "label": "send_start_message",
         "kind": 2,
         "importPath": "app.router.notification_router",
         "description": "app.router.notification_router",
-        "peekOfCode": "def send_start_message(chat_id: int, user: Users):\n    \"\"\"Send welcome message with user's name.\"\"\"\n    name = user.first_name or user.username or \"there\"\n    message = f\"\"\"👋 Hello {name}! Welcome to Reminder Bot!\nI can help you manage reminders and sync with Notion databases.\n📋 *Available Commands:*\n/start - Show this welcome message\n/add - Create a new reminder\n/list - View all your reminders\n/notion - Set up Notion integration",
+        "peekOfCode": "def send_start_message(chat_id: int, user: Users):\n    \"\"\"Send welcome message with user's name.\"\"\"\n    name = user.first_name or user.username or \"there\"\n    message = f\"\"\"👋 Hello {name}! Welcome to Reminder Bot!\nI can help you manage reminders and sync with Notion databases.\n📋 Available Commands:\n/start - Show this welcome message\n/add - Create a new reminder\n/list - View all your reminders\n/notion - Set up Notion integration",
         "detail": "app.router.notification_router",
         "documentation": {}
     },
@@ -984,7 +993,7 @@
         "kind": 2,
         "importPath": "app.router.notification_router",
         "description": "app.router.notification_router",
-        "peekOfCode": "def send_help_message(chat_id: int):\n    \"\"\"Send detailed help message.\"\"\"\n    message = \"\"\"📚 *Reminder Bot Help*\n*Creating Reminders:*\nUse /add to create a new reminder. I'll guide you through:\n• Naming your reminder\n• Setting it as one-time or recurring\n• Choosing the time interval (minutes/hours/days)\n• Adding a custom message\n*Notion Integration:*",
+        "peekOfCode": "def send_help_message(chat_id: int):\n    \"\"\"Send detailed help message.\"\"\"\n    message = \"\"\"📚 Reminder Bot Help\nCreating Reminders:\nUse /add to create a new reminder. I'll guide you through:\n• Naming your reminder\n• Setting it as one-time or recurring\n• Choosing the time interval (minutes/hours/days)\n• Adding a custom message\nNotion Integration:",
         "detail": "app.router.notification_router",
         "documentation": {}
     },
@@ -993,7 +1002,7 @@
         "kind": 2,
         "importPath": "app.router.notification_router",
         "description": "app.router.notification_router",
-        "peekOfCode": "def send_settings_menu(chat_id: int, user: Users):\n    \"\"\"Send interactive settings menu.\"\"\"\n    notion_status = \"✅ Enabled\" if user.notion_enabled else \"❌ Disabled\"\n    freq = getattr(user, \"notion_check_frequence\", 12)\n    db_count = len(user.notion_db_pages or [])\n    message = f\"\"\"⚙️ *Settings Menu*\n*Notion Integration:* {notion_status}\n*Refresh Frequency:* {freq} hours\n*Connected Databases:* {db_count}\n*Available Commands:*",
+        "peekOfCode": "def send_settings_menu(chat_id: int, user: Users):\n    \"\"\"Send interactive settings menu.\"\"\"\n    notion_status = \"✅ Enabled\" if user.notion_enabled else \"❌ Disabled\"\n    freq = getattr(user, \"notion_check_frequence\", 12)\n    db_count = len(user.notion_db_pages or [])\n    message = f\"\"\"⚙️ Settings Menu\nNotion Integration: {notion_status}\nRefresh Frequency: {freq} hours\nConnected Databases: {db_count}\nAvailable Commands:",
         "detail": "app.router.notification_router",
         "documentation": {}
     },
@@ -1002,7 +1011,7 @@
         "kind": 2,
         "importPath": "app.router.notification_router",
         "description": "app.router.notification_router",
-        "peekOfCode": "def send_notion_menu(chat_id: int, user: Users):\n    \"\"\"Send Notion integration menu.\"\"\"\n    has_token = bool(user.notion_api_key)\n    if not has_token:\n        message = \"\"\"🔗 *Notion Integration Setup*\nTo connect with Notion, I'll need an integration token.\n📝 *How to get your token:*\n1. Go to https://www.notion.so/my-integrations\n2. Click \"+ New integration\"\n3. Give it a name and submit",
+        "peekOfCode": "def send_notion_menu(chat_id: int, user: Users):\n    \"\"\"Send Notion integration menu.\"\"\"\n    has_token = bool(user.notion_api_key)\n    if not has_token:\n        message = \"\"\"🔗 Notion Integration Setup\nTo connect with Notion, I'll need an integration token.\n📝 How to get your token:\n1. Go to https://www.notion.so/my-integrations\n2. Click \"+ New integration\"\n3. Give it a name and submit",
         "detail": "app.router.notification_router",
         "documentation": {}
     },

@@ -248,6 +248,36 @@ def extract_notion_property_value(prop_data: dict) -> Optional[str]:
 # ============================================
 
 
+def escape_markdown(text: str) -> str:
+    """Escape special characters for Telegram Markdown."""
+    if not text:
+        return ""
+    # Escape special markdown characters
+    special_chars = [
+        "_",
+        "*",
+        "[",
+        "]",
+        "(",
+        ")",
+        "~",
+        "`",
+        ">",
+        "#",
+        "+",
+        "-",
+        "=",
+        "|",
+        "{",
+        "}",
+        ".",
+        "!",
+    ]
+    for char in special_chars:
+        text = text.replace(char, f"\\{char}")
+    return text
+
+
 def send_start_message(chat_id: int, user: Users):
     """Send welcome message with user's name."""
     name = user.first_name or user.username or "there"
@@ -255,7 +285,7 @@ def send_start_message(chat_id: int, user: Users):
 
 I can help you manage reminders and sync with Notion databases.
 
-📋 *Available Commands:*
+📋 Available Commands:
 
 /start - Show this welcome message
 /add - Create a new reminder
@@ -271,16 +301,16 @@ Let me know how I can assist you today!"""
 
 def send_help_message(chat_id: int):
     """Send detailed help message."""
-    message = """📚 *Reminder Bot Help*
+    message = """📚 Reminder Bot Help
 
-*Creating Reminders:*
+Creating Reminders:
 Use /add to create a new reminder. I'll guide you through:
 • Naming your reminder
 • Setting it as one-time or recurring
 • Choosing the time interval (minutes/hours/days)
 • Adding a custom message
 
-*Notion Integration:*
+Notion Integration:
 Use /notion to connect your Notion databases:
 • Add your Notion API token
 • Link databases to monitor
@@ -288,14 +318,14 @@ Use /notion to connect your Notion databases:
 • Import existing tasks as reminders
 • Set refresh frequency (12 or 24 hours)
 
-*Settings:*
+Settings:
 Use /settings to configure:
 • Enable/disable Notion sync
 • Change refresh frequency
 • View connected databases
 • Manage integrations
 
-*Tips:*
+Tips:
 • Only incomplete Notion tasks are imported
 • Recurring reminders repeat automatically
 • Use clear, descriptive reminder names"""
@@ -309,17 +339,17 @@ def send_settings_menu(chat_id: int, user: Users):
     freq = getattr(user, "notion_check_frequence", 12)
     db_count = len(user.notion_db_pages or [])
 
-    message = f"""⚙️ *Settings Menu*
+    message = f"""⚙️ Settings Menu
 
-*Notion Integration:* {notion_status}
-*Refresh Frequency:* {freq} hours
-*Connected Databases:* {db_count}
+Notion Integration: {notion_status}
+Refresh Frequency: {freq} hours
+Connected Databases: {db_count}
 
-*Available Commands:*
-• `toggle` - Enable/disable Notion sync
-• `freq 12` or `freq 24` - Change refresh frequency
-• `databases` - View connected databases
-• `done` - Exit settings
+Available Commands:
+• toggle - Enable/disable Notion sync
+• freq 12 or freq 24 - Change refresh frequency
+• databases - View connected databases
+• done - Exit settings
 
 Reply with a command to configure your settings."""
 
@@ -331,11 +361,11 @@ def send_notion_menu(chat_id: int, user: Users):
     has_token = bool(user.notion_api_key)
 
     if not has_token:
-        message = """🔗 *Notion Integration Setup*
+        message = """🔗 Notion Integration Setup
 
 To connect with Notion, I'll need an integration token.
 
-📝 *How to get your token:*
+📝 How to get your token:
 1. Go to https://www.notion.so/my-integrations
 2. Click "+ New integration"
 3. Give it a name and submit
@@ -347,17 +377,17 @@ Send me the token (starts with 'secret_' or 'ntn_') to continue."""
         db_count = len(user.notion_db_pages or [])
         status = "✅ Enabled" if user.notion_enabled else "❌ Disabled"
 
-        message = f"""🔗 *Notion Integration*
+        message = f"""🔗 Notion Integration
 
-*Status:* {status}
-*Connected Databases:* {db_count}
+Status: {status}
+Connected Databases: {db_count}
 
-*Available Commands:*
-• `add` - Add a new database
-• `remove` - Remove a database
-• `list` - View all databases
-• `change token` - Update API token
-• `done` - Exit setup
+Available Commands:
+• add - Add a new database
+• remove - Remove a database
+• list - View all databases
+• change token - Update API token
+• done - Exit setup
 
 Reply with a command to manage your integration."""
 
@@ -387,7 +417,7 @@ async def handle_notion_flow(
                 chat_id,
                 "📎 Send the Notion database ID or URL you want to monitor.\n\n"
                 "You can find this in the database URL:\n"
-                "`notion.so/workspace/DATABASE_ID?v=...`",
+                "notion.so/workspace/DATABASE_ID?v=...",
             )
             return
 
@@ -623,6 +653,8 @@ async def handle_notion_flow(
         name_prop = state.data.get("name_prop")
         time_prop = state.data.get("time_prop")
         status_prop = state.data.get("status_prop")
+        property_types = state.data.get("property_types", {})
+        status_prop_type = property_types.get(status_prop, "checkbox")
 
         # Save database mapping
         try:
@@ -636,6 +668,7 @@ async def handle_notion_flow(
                 "name_prop": name_prop,
                 "time_prop": time_prop,
                 "status_prop": status_prop,
+                "status_prop_type": status_prop_type,
             }
             # Replace existing mapping for same db_id
             mappings = [m for m in mappings if m.get("db_id") != db_id] + [mapping]
@@ -667,7 +700,9 @@ async def handle_notion_flow(
         # Perform import
         send_message(settings.bot_token, chat_id, "⏳ Importing tasks...")
 
-        success, pages = query_notion_database(user.notion_api_key, db_id, status_prop)
+        success, pages = query_notion_database(
+            user.notion_api_key, db_id, status_prop, status_prop_type
+        )
         if not success:
             send_message(
                 settings.bot_token,
@@ -1059,7 +1094,7 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
                 )
                 return {"status": "ok"}
 
-            message = "📋 *Your Reminders:*\n\n"
+            message = "📋 Your Reminders:\n\n"
             for i, reminder in enumerate(reminders, 1):
                 recurring = (
                     "🔄 Recurring" if reminder.interval_minutes else "⏰ One-time"
@@ -1071,7 +1106,15 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
                 )
                 source = f"({reminder.source})" if reminder.source else ""
 
-                message += f"{i}. *{reminder.reminder_name}* {source}\n"
+                # Escape special characters for Telegram
+                name = (
+                    reminder.reminder_name.replace("_", "\\_")
+                    .replace("*", "\\*")
+                    .replace("[", "\\[")
+                    .replace("`", "\\`")
+                )
+
+                message += f"{i}. {name} {source}\n"
                 message += f"   {recurring} • Next: {next_time}\n\n"
 
             send_message(settings.bot_token, chat_id, message)
