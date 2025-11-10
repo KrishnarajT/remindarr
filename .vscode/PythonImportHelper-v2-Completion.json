@@ -84,6 +84,14 @@
         "documentation": {}
     },
     {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
         "label": "text",
         "importPath": "sqlalchemy",
         "description": "sqlalchemy",
@@ -109,6 +117,22 @@
     },
     {
         "label": "func",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "JSON",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
         "importPath": "sqlalchemy",
         "description": "sqlalchemy",
         "isExtraImport": true,
@@ -172,14 +196,6 @@
         "documentation": {}
     },
     {
-        "label": "select",
-        "importPath": "sqlmodel",
-        "description": "sqlmodel",
-        "isExtraImport": true,
-        "detail": "sqlmodel",
-        "documentation": {}
-    },
-    {
         "label": "Settings",
         "importPath": "app.constants.constants",
         "description": "app.constants.constants",
@@ -189,14 +205,6 @@
     },
     {
         "label": "Settings",
-        "importPath": "app.constants.constants",
-        "description": "app.constants.constants",
-        "isExtraImport": true,
-        "detail": "app.constants.constants",
-        "documentation": {}
-    },
-    {
-        "label": "settings",
         "importPath": "app.constants.constants",
         "description": "app.constants.constants",
         "isExtraImport": true,
@@ -310,6 +318,62 @@
         "documentation": {}
     },
     {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
         "label": "Optional",
         "importPath": "typing",
         "description": "typing",
@@ -358,38 +422,6 @@
         "documentation": {}
     },
     {
-        "label": "APIRouter",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "Request",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "Depends",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "HTTPException",
-        "importPath": "fastapi",
-        "description": "fastapi",
-        "isExtraImport": true,
-        "detail": "fastapi",
-        "documentation": {}
-    },
-    {
         "label": "FastAPI",
         "importPath": "fastapi",
         "description": "fastapi",
@@ -422,11 +454,21 @@
         "documentation": {}
     },
     {
-        "label": "Session",
-        "importPath": "sqlalchemy.orm",
-        "description": "sqlalchemy.orm",
+        "label": "re",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "sqlalchemy.orm",
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
         "documentation": {}
     },
     {
@@ -447,11 +489,19 @@
         "documentation": {}
     },
     {
-        "label": "get_session",
-        "importPath": "app.db.config_db",
-        "description": "app.db.config_db",
+        "label": "Reminders",
+        "importPath": "app.db.models",
+        "description": "app.db.models",
         "isExtraImport": true,
-        "detail": "app.db.config_db",
+        "detail": "app.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Users",
+        "importPath": "app.db.models",
+        "description": "app.db.models",
+        "isExtraImport": true,
+        "detail": "app.db.models",
         "documentation": {}
     },
     {
@@ -471,30 +521,6 @@
         "documentation": {}
     },
     {
-        "label": "Users",
-        "importPath": "app.db.models",
-        "description": "app.db.models",
-        "isExtraImport": true,
-        "detail": "app.db.models",
-        "documentation": {}
-    },
-    {
-        "label": "Reminders",
-        "importPath": "app.db.models",
-        "description": "app.db.models",
-        "isExtraImport": true,
-        "detail": "app.db.models",
-        "documentation": {}
-    },
-    {
-        "label": "Users",
-        "importPath": "app.db.models",
-        "description": "app.db.models",
-        "isExtraImport": true,
-        "detail": "app.db.models",
-        "documentation": {}
-    },
-    {
         "label": "send_message",
         "importPath": "app.services.telegram",
         "description": "app.services.telegram",
@@ -508,22 +534,6 @@
         "description": "app.services.telegram",
         "isExtraImport": true,
         "detail": "app.services.telegram",
-        "documentation": {}
-    },
-    {
-        "label": "send_message",
-        "importPath": "app.services.telegram",
-        "description": "app.services.telegram",
-        "isExtraImport": true,
-        "detail": "app.services.telegram",
-        "documentation": {}
-    },
-    {
-        "label": "logger",
-        "importPath": "app.utils.logging_utils",
-        "description": "app.utils.logging_utils",
-        "isExtraImport": true,
-        "detail": "app.utils.logging_utils",
         "documentation": {}
     },
     {
@@ -846,6 +856,33 @@
         "documentation": {}
     },
     {
+        "label": "SettingsPayload",
+        "kind": 6,
+        "importPath": "app.router.notification_router",
+        "description": "app.router.notification_router",
+        "peekOfCode": "class SettingsPayload(BaseModel):\n    chat_id: str\n    notion_enabled: Optional[bool] = None\n    notion_check_frequence: Optional[int] = None\n@router.get(\"/settings/{chat_id}\")\ndef get_settings(chat_id: str, db: Session = Depends(get_session)):\n    user = db.get(Users, str(chat_id))\n    if not user:\n        return JSONResponse(content={\"status\": \"not_found\"}, status_code=404)\n    return {",
+        "detail": "app.router.notification_router",
+        "documentation": {}
+    },
+    {
+        "label": "get_settings",
+        "kind": 2,
+        "importPath": "app.router.notification_router",
+        "description": "app.router.notification_router",
+        "peekOfCode": "def get_settings(chat_id: str, db: Session = Depends(get_session)):\n    user = db.get(Users, str(chat_id))\n    if not user:\n        return JSONResponse(content={\"status\": \"not_found\"}, status_code=404)\n    return {\n        \"chat_id\": user.chat_id,\n        \"notion_enabled\": bool(user.notion_enabled),\n        \"notion_db_pages\": user.notion_db_pages or [],\n        \"notion_check_frequence\": getattr(user, \"notion_check_frequence\", 12),\n    }",
+        "detail": "app.router.notification_router",
+        "documentation": {}
+    },
+    {
+        "label": "update_settings",
+        "kind": 2,
+        "importPath": "app.router.notification_router",
+        "description": "app.router.notification_router",
+        "peekOfCode": "def update_settings(payload: SettingsPayload, db: Session = Depends(get_session)):\n    user = db.get(Users, str(payload.chat_id))\n    if not user:\n        return JSONResponse(content={\"status\": \"not_found\"}, status_code=404)\n    changed = False\n    if payload.notion_enabled is not None:\n        user.notion_enabled = bool(payload.notion_enabled)\n        changed = True\n    if payload.notion_check_frequence is not None:\n        if payload.notion_check_frequence in (12, 24):",
+        "detail": "app.router.notification_router",
+        "documentation": {}
+    },
+    {
         "label": "router",
         "kind": 5,
         "importPath": "app.router.notification_router",
@@ -870,24 +907,6 @@
         "description": "app.router.notification_router",
         "peekOfCode": "notion_setup_states = {}  # Notion setup flow\n# --------------------------\n# USER UTIL\n# --------------------------\nasync def get_or_create_user(db: Session, telegram_data: dict) -> Users:\n    \"\"\"Get existing user or create new one from Telegram data.\"\"\"\n    message = telegram_data[\"message\"]\n    from_user = message[\"from\"]\n    chat = message[\"chat\"]\n    user = db.get(Users, str(chat[\"id\"]))",
         "detail": "app.router.notification_router",
-        "documentation": {}
-    },
-    {
-        "label": "router",
-        "kind": 5,
-        "importPath": "app.router.notion_router",
-        "description": "app.router.notion_router",
-        "peekOfCode": "router = APIRouter(prefix=\"/notion\", tags=[\"notion\"])\n# Temporary in-memory state store for ongoing conversations\nnotion_setup_states = {}\n@router.post(\"/webhook\")\nasync def notion_webhook(request: Request, db: Session = Depends(get_session)):\n    try:\n        data = await request.json()\n        logger.info(f\"Incoming Notion webhook data: {data}\")\n        chat_id = data[\"message\"][\"chat\"][\"id\"]\n        text = data[\"message\"].get(\"text\", \"\").strip()",
-        "detail": "app.router.notion_router",
-        "documentation": {}
-    },
-    {
-        "label": "notion_setup_states",
-        "kind": 5,
-        "importPath": "app.router.notion_router",
-        "description": "app.router.notion_router",
-        "peekOfCode": "notion_setup_states = {}\n@router.post(\"/webhook\")\nasync def notion_webhook(request: Request, db: Session = Depends(get_session)):\n    try:\n        data = await request.json()\n        logger.info(f\"Incoming Notion webhook data: {data}\")\n        chat_id = data[\"message\"][\"chat\"][\"id\"]\n        text = data[\"message\"].get(\"text\", \"\").strip()\n    except Exception as e:\n        logger.error(f\"Failed to parse webhook JSON: {e}\")",
-        "detail": "app.router.notion_router",
         "documentation": {}
     },
     {

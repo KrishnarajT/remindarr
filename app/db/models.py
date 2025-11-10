@@ -1,8 +1,8 @@
 import uuid
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List, Dict, Any
 
-from sqlalchemy import Column, DateTime, func
+from sqlalchemy import Column, DateTime, func, JSON, String
 from sqlmodel import SQLModel, Field
 
 from app.constants.constants import Settings
@@ -28,6 +28,20 @@ class Users(Base, table=True):
     notion_workspace_name: Optional[str] = Field(default=None, description="Name of the Notion workspace")
     notion_enabled: bool = Field(default=False, description="Whether Notion integration is enabled")
 
+    # Store list of notion database ids the user wants to monitor
+    # Stored as JSON array of strings
+    notion_db_pages: Optional[List[str]] = Field(
+        default=None, sa_column=Column(JSON, nullable=True), description="List of Notion database IDs/URLs"
+    )
+
+    # Store mappings per database: list of objects {"db_id": str, "name_prop": str, "time_prop": str}
+    notion_db_mappings: Optional[List[Dict[str, Any]]] = Field(
+        default=None, sa_column=Column(JSON, nullable=True), description="Saved property mappings for each Notion DB"
+    )
+
+    # How often to check notion pages (hours). Allowed values: 12 or 24. Default 12
+    notion_check_frequence: int = Field(default=12, description="Notion refresh frequency in hours")
+
     # User Preferences & State
     timezone: Optional[str] = Field(default="UTC", description="User's timezone for scheduling")
     notifications_enabled: bool = Field(default=True, description="Whether notifications are enabled")
@@ -42,6 +56,7 @@ class Users(Base, table=True):
     last_active_at: datetime = Field(
         sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     )
+
 
 class Reminders(Base, table=True):
     __tablename__ = "reminders"
@@ -60,6 +75,12 @@ class Reminders(Base, table=True):
 
     reminder_name: str = Field(nullable=False, max_length=255)
     reminder_content: str = Field(nullable=False)
+
+    # Source of the reminder: 'user' (manually created) or 'notion' (imported from Notion)
+    source: str = Field(default="user", description="Source of the reminder: user or notion")
+
+    # Notion page/database id (optional)
+    notion_page_id: Optional[str] = Field(default=None, description="Notion page or database id that created this reminder")
 
     # Repeat interval (in minutes). None means one-time reminder.
     # default to None (one-time) to avoid accidental recurring behavior
