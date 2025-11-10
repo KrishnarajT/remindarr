@@ -85,3 +85,6 @@ curl -X POST \
 5. see if recurring reminders work
 6. always show time in user timezone. 
 7. restructure the schema to include the notion things in another table. 
+8. deleting notion dbs doesnt actually work fix that
+9. there has to be a way to delete the recurring tasks. 
+10. list isnt working we gotta fix that, and in that list we gotta ask the user for multiple different types of listings, which could be notion, source, recurring, single, today, tomorrow, all etc. 
