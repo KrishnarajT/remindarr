@@ -833,7 +833,7 @@
         "kind": 6,
         "importPath": "app.db.models",
         "description": "app.db.models",
-        "peekOfCode": "class Base(SQLModel):\n    __table_args__ = {\"schema\": Settings().db_schema}\nclass Users(Base, table=True):\n    \"\"\"Store user information and integration settings.\"\"\"\n    __tablename__ = \"users\"\n    # Telegram Info (from message.from and message.chat)\n    chat_id: str = Field(primary_key=True, description=\"Telegram chat/user ID\")\n    username: Optional[str] = Field(default=None, description=\"Telegram username\")\n    first_name: Optional[str] = Field(default=None, description=\"User's first name from Telegram\")\n    language_code: Optional[str] = Field(default=None, description=\"User's language preference\")",
+        "peekOfCode": "class Base(SQLModel):\n    __table_args__ = {\"schema\": Settings().db_schema}\nclass Users(Base, table=True):\n    \"\"\"Store user information and integration settings.\"\"\"\n    __tablename__ = \"users\"\n    # Telegram Info (from message.from and message.chat)\n    chat_id: str = Field(primary_key=True, description=\"Telegram chat/user ID\")\n    username: Optional[str] = Field(default=None, description=\"Telegram username\")\n    first_name: Optional[str] = Field(\n        default=None, description=\"User's first name from Telegram\"",
         "detail": "app.db.models",
         "documentation": {}
     },
@@ -842,7 +842,7 @@
         "kind": 6,
         "importPath": "app.db.models",
         "description": "app.db.models",
-        "peekOfCode": "class Users(Base, table=True):\n    \"\"\"Store user information and integration settings.\"\"\"\n    __tablename__ = \"users\"\n    # Telegram Info (from message.from and message.chat)\n    chat_id: str = Field(primary_key=True, description=\"Telegram chat/user ID\")\n    username: Optional[str] = Field(default=None, description=\"Telegram username\")\n    first_name: Optional[str] = Field(default=None, description=\"User's first name from Telegram\")\n    language_code: Optional[str] = Field(default=None, description=\"User's language preference\")\n    is_bot: bool = Field(default=False, description=\"Whether the user is a bot\")\n    # Notion Integration",
+        "peekOfCode": "class Users(Base, table=True):\n    \"\"\"Store user information and integration settings.\"\"\"\n    __tablename__ = \"users\"\n    # Telegram Info (from message.from and message.chat)\n    chat_id: str = Field(primary_key=True, description=\"Telegram chat/user ID\")\n    username: Optional[str] = Field(default=None, description=\"Telegram username\")\n    first_name: Optional[str] = Field(\n        default=None, description=\"User's first name from Telegram\"\n    )\n    language_code: Optional[str] = Field(",
         "detail": "app.db.models",
         "documentation": {}
     },
@@ -851,7 +851,7 @@
         "kind": 6,
         "importPath": "app.db.models",
         "description": "app.db.models",
-        "peekOfCode": "class Reminders(Base, table=True):\n    __tablename__ = \"reminders\"\n    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True, index=True)\n    created_at: Optional[datetime] = Field(\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False)\n    )\n    updated_at: Optional[datetime] = Field(\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)\n    )\n    active: bool = Field(default=True, nullable=False)",
+        "peekOfCode": "class Reminders(Base, table=True):\n    __tablename__ = \"reminders\"\n    id: str = Field(\n        default_factory=lambda: str(uuid.uuid4()), primary_key=True, index=True\n    )\n    created_at: Optional[datetime] = Field(\n        sa_column=Column(\n            DateTime(timezone=True), server_default=func.now(), nullable=False\n        )\n    )",
         "detail": "app.db.models",
         "documentation": {}
     },

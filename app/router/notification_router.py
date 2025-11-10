@@ -205,10 +205,14 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
                 "Authorization": f"Bearer {user.notion_api_key}",
                 "Notion-Version": "2022-06-28",
             }
-            resp = requests.get(f"https://api.notion.com/v1/databases/{db_id}", headers=headers)
+            resp = requests.get(
+                f"https://api.notion.com/v1/databases/{db_id}", headers=headers
+            )
 
             if resp.status_code != 200:
-                logger.error(f"Failed to fetch database {db_id} for user {chat_id}: {resp.text}")
+                logger.error(
+                    f"Failed to fetch database {db_id} for user {chat_id}: {resp.text}"
+                )
                 send_message(
                     settings.bot_token,
                     chat_id,
@@ -223,7 +227,9 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
             state.update({"current_db_id": db_id, "properties": prop_names})
             notion_setup_states[chat_id] = state
 
-            props_text = "\\n".join([f"• {p}" for p in prop_names]) or "(no properties found)"
+            props_text = (
+                "\\n".join([f"• {p}" for p in prop_names]) or "(no properties found)"
+            )
             send_message(
                 settings.bot_token,
                 chat_id,
@@ -296,7 +302,11 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
             # persist db id and mapping on the user
             try:
                 user.notion_db_pages = (user.notion_db_pages or []) + [db_id]
-                mapping = {"db_id": db_id, "name_prop": name_prop, "time_prop": time_prop}
+                mapping = {
+                    "db_id": db_id,
+                    "name_prop": name_prop,
+                    "time_prop": time_prop,
+                }
                 user.notion_db_mappings = (user.notion_db_mappings or []) + [mapping]
                 db.add(user)
                 db.commit()
@@ -325,9 +335,13 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
                 "Notion-Version": "2022-06-28",
                 "Content-Type": "application/json",
             }
-            qresp = requests.post(f"https://api.notion.com/v1/databases/{db_id}/query", headers=headers)
+            qresp = requests.post(
+                f"https://api.notion.com/v1/databases/{db_id}/query", headers=headers
+            )
             if qresp.status_code != 200:
-                logger.error(f"Failed to query database {db_id} for user {chat_id}: {qresp.text}")
+                logger.error(
+                    f"Failed to query database {db_id} for user {chat_id}: {qresp.text}"
+                )
                 send_message(
                     settings.bot_token,
                     chat_id,
@@ -346,7 +360,9 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
                 if p and p.get("type") == "title":
                     arr = p.get("title", [])
                     if arr:
-                        name_val = "".join([t.get("plain_text", "") for t in arr]).strip()
+                        name_val = "".join(
+                            [t.get("plain_text", "") for t in arr]
+                        ).strip()
                 elif p:
                     name_val = str(p)
 
@@ -374,7 +390,9 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
                     db.add(reminder)
                     imported += 1
                 except Exception as e:
-                    logger.error(f"Failed to create reminder from Notion page for user {chat_id}: {e}")
+                    logger.error(
+                        f"Failed to create reminder from Notion page for user {chat_id}: {e}"
+                    )
 
             db.commit()
             send_message(
@@ -555,7 +573,10 @@ def update_settings(payload: SettingsPayload, db: Session = Depends(get_session)
             user.notion_check_frequence = int(payload.notion_check_frequence)
             changed = True
         else:
-            return JSONResponse(content={"status": "invalid_frequency", "allowed": [12, 24]}, status_code=400)
+            return JSONResponse(
+                content={"status": "invalid_frequency", "allowed": [12, 24]},
+                status_code=400,
+            )
 
     if changed:
         db.add(user)
