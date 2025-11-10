@@ -76,3 +76,12 @@ curl -X POST \
 
 `curl "https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getWebhookInfo"`
 
+
+# things to fix
+1. check the commands some arent working. 
+2. modularize and split up code properly
+3. think of mcp integration here when modularizing. 
+4. fix the notion api pulling thing by experimenting first and then putting that thing here. 
+5. see if recurring reminders work
+6. always show time in user timezone. 
+7. restructure the schema to include the notion things in another table. 
