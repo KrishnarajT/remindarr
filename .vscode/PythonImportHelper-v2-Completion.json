@@ -197,6 +197,22 @@
         "documentation": {}
     },
     {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
         "label": "Column",
         "importPath": "sqlalchemy",
         "description": "sqlalchemy",
@@ -222,6 +238,14 @@
     },
     {
         "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
         "importPath": "fastapi",
         "description": "fastapi",
         "isExtraImport": true,
@@ -278,6 +302,14 @@
         "documentation": {}
     },
     {
+        "label": "Reminders",
+        "importPath": "app.db.models",
+        "description": "app.db.models",
+        "isExtraImport": true,
+        "detail": "app.db.models",
+        "documentation": {}
+    },
+    {
         "label": "send_message",
         "importPath": "app.services.telegram",
         "description": "app.services.telegram",
@@ -291,6 +323,14 @@
         "description": "app.utils.logging_utils",
         "isExtraImport": true,
         "detail": "app.utils.logging_utils",
+        "documentation": {}
+    },
+    {
+        "label": "JSONResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
         "documentation": {}
     },
     {
@@ -466,7 +506,7 @@
         "kind": 6,
         "importPath": "app.db.models",
         "description": "app.db.models",
-        "peekOfCode": "class Base(SQLModel):\n    __table_args__ = {\"schema\": Settings().db_schema}\nclass Reminders(Base, table=True):\n    __tablename__ = \"reminders\"\n    # frontend uses string id — use UUID4 string here\n    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True, index=True)\n    # These are optional in Python model because the DB will fill them\n    created_at: Optional[datetime] = Field(default=None,\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False, ), )\n    updated_at: Optional[datetime] = Field(default=None,",
+        "peekOfCode": "class Base(SQLModel):\n    __table_args__ = {\"schema\": Settings().db_schema}\nclass Reminders(Base, table=True):\n    __tablename__ = \"reminders\"\n    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True, index=True)\n    created_at: Optional[datetime] = Field(\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False)\n    )\n    updated_at: Optional[datetime] = Field(\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)",
         "detail": "app.db.models",
         "documentation": {}
     },
@@ -475,7 +515,7 @@
         "kind": 6,
         "importPath": "app.db.models",
         "description": "app.db.models",
-        "peekOfCode": "class Reminders(Base, table=True):\n    __tablename__ = \"reminders\"\n    # frontend uses string id — use UUID4 string here\n    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True, index=True)\n    # These are optional in Python model because the DB will fill them\n    created_at: Optional[datetime] = Field(default=None,\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False, ), )\n    updated_at: Optional[datetime] = Field(default=None,\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False, ), )\n    # active flag for soft delete",
+        "peekOfCode": "class Reminders(Base, table=True):\n    __tablename__ = \"reminders\"\n    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True, index=True)\n    created_at: Optional[datetime] = Field(\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False)\n    )\n    updated_at: Optional[datetime] = Field(\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)\n    )\n    active: bool = Field(default=True, nullable=False)",
         "detail": "app.db.models",
         "documentation": {}
     },
@@ -484,7 +524,16 @@
         "kind": 5,
         "importPath": "app.router.notification_router",
         "description": "app.router.notification_router",
-        "peekOfCode": "router = APIRouter(prefix=\"/notifications\", tags=[\"notifications\"])\n@router.get(\"/test\")\nasync def test_notification(db: Session = Depends(get_session)):\n    try:\n        send_message(settings.bot_token, settings.chat_id, \"Hi from Remindarr!\")\n        return {\"status\": \"success\", \"message\": \"Test notification sent\"}\n    except Exception as e:\n        logger.info(f\"Failed to send test notification: {e}\")\n        return {\"status\": \"error\", \"message\": str(e)}",
+        "peekOfCode": "router = APIRouter(prefix=\"/notifications\", tags=[\"notifications\"])\n# Temporary in-memory state store for ongoing conversations\nuser_states = {}\n@router.get(\"/test\")\nasync def test_notification(db: Session = Depends(get_session)):\n    try:\n        send_message(settings.bot_token, settings.chat_id, \"Hi from Remindarr!\")\n        return {\"status\": \"success\", \"message\": \"Test notification sent\"}\n    except Exception as e:\n        logger.info(f\"Failed to send test notification: {e}\")",
+        "detail": "app.router.notification_router",
+        "documentation": {}
+    },
+    {
+        "label": "user_states",
+        "kind": 5,
+        "importPath": "app.router.notification_router",
+        "description": "app.router.notification_router",
+        "peekOfCode": "user_states = {}\n@router.get(\"/test\")\nasync def test_notification(db: Session = Depends(get_session)):\n    try:\n        send_message(settings.bot_token, settings.chat_id, \"Hi from Remindarr!\")\n        return {\"status\": \"success\", \"message\": \"Test notification sent\"}\n    except Exception as e:\n        logger.info(f\"Failed to send test notification: {e}\")\n        return {\"status\": \"error\", \"message\": str(e)}\nfrom fastapi.responses import JSONResponse",
         "detail": "app.router.notification_router",
         "documentation": {}
     },
