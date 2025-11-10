@@ -554,7 +554,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\nimport app.db.config_db as config_db\nfrom app.router.notification_router import router as notification_router\n@asynccontextmanager\nasync def lifespan(app: FastAPI):\n    await config_db.init_db()\n    try:\n        yield\n    finally:\n        await config_db.engine.dispose()",
+        "peekOfCode": "app = FastAPI()\nimport app.db.config_db as config_db\nfrom app.router.notification_router import router as notification_router\n@asynccontextmanager\nasync def lifespan(app: FastAPI):\n    config_db.init_db()\n    try:\n        yield\n    finally:\n        await config_db.engine.dispose()",
         "detail": "main",
         "documentation": {}
     },

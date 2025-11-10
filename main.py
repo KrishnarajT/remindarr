@@ -11,7 +11,7 @@ from app.router.notification_router import router as notification_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await config_db.init_db()
+    config_db.init_db()
     try:
         yield
     finally:
