@@ -930,7 +930,7 @@ async def handle_reminder_flow(chat_id: int, text: str, state: UserState, db: Se
                 chat_id,
                 f"✅ *{type_str.title()} Reminder Created!*\n\n"
                 f"📝 Name: {reminder.reminder_name}\n"
-                f"⏰ Time: {state['data']['amount']} {state['data']['unit']}\n"
+                f"⏰ Time: {state.data['amount']} {state.data['unit']}\n"
                 f"💬 Message: {reminder.reminder_content}\n"
                 f"🔔 Next trigger: {next_trigger_at.strftime('%Y-%m-%d %H:%M')}",
             )
