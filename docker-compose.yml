@@ -9,7 +9,7 @@ services:
       - .:/app
     depends_on:
       - remindarr_db
-    command: uvicorn app.main:app --host ${API_HOST} --port ${API_PORT} --reload
+    command: uvicorn main:app --host ${API_HOST} --port ${API_PORT} --reload
 
   remindarr_db:
     image: postgres:16
