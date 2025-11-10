@@ -11,11 +11,12 @@ from app.constants.constants import settings
 from app.utils.logging_utils import logger
 from app.utils.time_utils import parse_time_unit, calculate_next_trigger
 
+import requests
 
 router = APIRouter(prefix="/notifications", tags=["notifications"])
 
 # In-memory state stores
-user_states = {}          # Reminder creation flow
+user_states = {}  # Reminder creation flow
 notion_setup_states = {}  # Notion setup flow
 
 
@@ -64,7 +65,9 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
         logger.info(f"Incoming Telegram data: {data}")
 
         if "message" not in data:
-            return JSONResponse(content={"status": "ignored", "reason": "no message field"})
+            return JSONResponse(
+                content={"status": "ignored", "reason": "no message field"}
+            )
 
         # Create or update user record
         user = await get_or_create_user(db, data)
@@ -85,7 +88,7 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
             "I'm your reminder bot. I can:\n"
             "• Set one-time or recurring reminders (/add)\n"
             "• Connect to your Notion workspace (/notion)\n\n"
-            "What would you like to do?"
+            "What would you like to do?",
         )
         return {"status": "ok"}
 
@@ -104,20 +107,40 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
             "3. Name it 'Remindarr' and select your workspace\n"
             "4. Copy the 'Internal Integration Token'\n"
             "5. Send it to me here\n\n"
-            "Your token will be encrypted and stored securely."
+            "Your token will be encrypted and stored securely.",
         )
         return {"status": "ok"}
 
     # Handle Notion token submission
     if chat_id in notion_setup_states:
         state = notion_setup_states[chat_id]
+
         if state.get("step") == 1:
-            if not text.startswith("secret_"):
+            if not text.startswith(("secret_", "ntn_")):
                 send_message(
                     settings.bot_token,
                     chat_id,
                     "That doesn't look like a valid Notion token. "
-                    "It should start with 'secret_'. Please try again or type /notion to restart."
+                    "It should start with 'secret_' or 'ntn_'. Please try again or type /notion to restart.",
+                )
+                return {"status": "ok"}
+
+            # Validate token before saving
+            headers = {
+                "Authorization": f"Bearer {text}",
+                "Notion-Version": "2022-06-28",
+            }
+            resp = requests.get("https://api.notion.com/v1/users/me", headers=headers)
+
+            if resp.status_code != 200:
+                logger.error(
+                    f"Notion token validation failed for user {chat_id}: {resp.text}"
+                )
+                send_message(
+                    settings.bot_token,
+                    chat_id,
+                    "❌ That Notion token seems invalid or expired. "
+                    "Please double-check and send the correct one.",
                 )
                 return {"status": "ok"}
 
@@ -127,12 +150,18 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
                 db.add(user)
                 db.commit()
 
+                user_info = resp.json()
+                notion_user_name = user_info.get("name") or user_info.get(
+                    "owner", {}
+                ).get("user", {}).get("name", "your Notion account")
+
                 send_message(
                     settings.bot_token,
                     chat_id,
-                    "✅ Notion integration set up successfully!\n\n"
-                    "Your reminders will be synced with Notion. "
-                    "You can update this integration anytime with /notion"
+                    f"✅ Notion integration verified successfully!\n\n"
+                    f"Connected as: {notion_user_name}\n\n"
+                    "Your reminders will now sync with Notion. "
+                    "You can update this integration anytime with /notion",
                 )
             except Exception as e:
                 logger.error(f"Failed to save Notion settings: {e}")
@@ -140,12 +169,11 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
                     settings.bot_token,
                     chat_id,
                     "❌ Sorry, something went wrong saving your Notion integration. "
-                    "Please try again later or contact support."
+                    "Please try again later or contact support.",
                 )
 
             del notion_setup_states[chat_id]
             return {"status": "ok"}
-
     # --------------------------
     # REMINDER CREATION FLOW
     # --------------------------
@@ -156,7 +184,11 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
 
     # Step 0: Start
     if text == "/add":
-        send_message(settings.bot_token, chat_id, "Let's create a new reminder! What should I name it?")
+        send_message(
+            settings.bot_token,
+            chat_id,
+            "Let's create a new reminder! What should I name it?",
+        )
         state["step"] = 1
         return {"status": "ok"}
 
@@ -166,7 +198,7 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
         send_message(
             settings.bot_token,
             chat_id,
-            "Should this be a one-time reminder or recurring? Reply with: once/recurring"
+            "Should this be a one-time reminder or recurring? Reply with: once/recurring",
         )
         state["step"] = 2
         return {"status": "ok"}
@@ -179,10 +211,18 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
         elif reminder_type in ("recurring", "repeat", "repeating"):
             state["data"]["is_recurring"] = True
         else:
-            send_message(settings.bot_token, chat_id, "Please reply with either 'once' or 'recurring'.")
+            send_message(
+                settings.bot_token,
+                chat_id,
+                "Please reply with either 'once' or 'recurring'.",
+            )
             return {"status": "ok"}
 
-        send_message(settings.bot_token, chat_id, "When should I remind you? Reply with one of: minutes/hours/days")
+        send_message(
+            settings.bot_token,
+            chat_id,
+            "When should I remind you? Reply with one of: minutes/hours/days",
+        )
         state["step"] = 3
         return {"status": "ok"}
 
@@ -190,12 +230,18 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
     if state["step"] == 3:
         multiplier, unit = parse_time_unit(text)
         if not multiplier or not unit:
-            send_message(settings.bot_token, chat_id, "Please reply with 'minutes', 'hours', or 'days'.")
+            send_message(
+                settings.bot_token,
+                chat_id,
+                "Please reply with 'minutes', 'hours', or 'days'.",
+            )
             return {"status": "ok"}
 
         state["data"]["unit"] = unit
         state["data"]["multiplier"] = multiplier
-        send_message(settings.bot_token, chat_id, f"How many {unit} until I should remind you?")
+        send_message(
+            settings.bot_token, chat_id, f"How many {unit} until I should remind you?"
+        )
         state["step"] = 4
         return {"status": "ok"}
 
@@ -204,10 +250,18 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
         try:
             amount = int(text)
             state["data"]["amount"] = amount
-            send_message(settings.bot_token, chat_id, "What message should I send when reminding you?")
+            send_message(
+                settings.bot_token,
+                chat_id,
+                "What message should I send when reminding you?",
+            )
             state["step"] = 5
         except ValueError:
-            send_message(settings.bot_token, chat_id, "Please enter a valid whole number for the amount.")
+            send_message(
+                settings.bot_token,
+                chat_id,
+                "Please enter a valid whole number for the amount.",
+            )
         return {"status": "ok"}
 
     # Step 5: Save reminder
@@ -242,5 +296,9 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
         del user_states[chat_id]
         return {"status": "ok"}
 
-    send_message(settings.bot_token, chat_id, "Please send /add to start creating a new reminder.")
+    send_message(
+        settings.bot_token,
+        chat_id,
+        "Please send /add to start creating a new reminder.",
+    )
     return {"status": "ok"}
