@@ -887,7 +887,7 @@
         "kind": 5,
         "importPath": "app.router.notification_router",
         "description": "app.router.notification_router",
-        "peekOfCode": "router = APIRouter(prefix=\"/notifications\", tags=[\"notifications\"])\n# In-memory state stores\nuser_states = {}  # Reminder creation flow\nnotion_setup_states = {}  # Notion setup flow\n# --------------------------\n# USER UTIL\n# --------------------------\nasync def get_or_create_user(db: Session, telegram_data: dict) -> Users:\n    \"\"\"Get existing user or create new one from Telegram data.\"\"\"\n    message = telegram_data[\"message\"]",
+        "peekOfCode": "router = APIRouter(prefix=\"/notifications\", tags=[\"notifications\"])\n# In-memory state stores\nuser_states = {}  # Reminder creation flow\nnotion_setup_states = {}  # Notion setup flow\nasync def get_or_create_user(db: Session, telegram_data: dict) -> Users:\n    \"\"\"Get existing user or create new one from Telegram data.\"\"\"\n    message = telegram_data[\"message\"]\n    from_user = message[\"from\"]\n    chat = message[\"chat\"]\n    user = db.get(Users, str(chat[\"id\"]))",
         "detail": "app.router.notification_router",
         "documentation": {}
     },
@@ -896,7 +896,7 @@
         "kind": 5,
         "importPath": "app.router.notification_router",
         "description": "app.router.notification_router",
-        "peekOfCode": "user_states = {}  # Reminder creation flow\nnotion_setup_states = {}  # Notion setup flow\n# --------------------------\n# USER UTIL\n# --------------------------\nasync def get_or_create_user(db: Session, telegram_data: dict) -> Users:\n    \"\"\"Get existing user or create new one from Telegram data.\"\"\"\n    message = telegram_data[\"message\"]\n    from_user = message[\"from\"]\n    chat = message[\"chat\"]",
+        "peekOfCode": "user_states = {}  # Reminder creation flow\nnotion_setup_states = {}  # Notion setup flow\nasync def get_or_create_user(db: Session, telegram_data: dict) -> Users:\n    \"\"\"Get existing user or create new one from Telegram data.\"\"\"\n    message = telegram_data[\"message\"]\n    from_user = message[\"from\"]\n    chat = message[\"chat\"]\n    user = db.get(Users, str(chat[\"id\"]))\n    if not user:\n        user = Users(",
         "detail": "app.router.notification_router",
         "documentation": {}
     },
@@ -905,7 +905,7 @@
         "kind": 5,
         "importPath": "app.router.notification_router",
         "description": "app.router.notification_router",
-        "peekOfCode": "notion_setup_states = {}  # Notion setup flow\n# --------------------------\n# USER UTIL\n# --------------------------\nasync def get_or_create_user(db: Session, telegram_data: dict) -> Users:\n    \"\"\"Get existing user or create new one from Telegram data.\"\"\"\n    message = telegram_data[\"message\"]\n    from_user = message[\"from\"]\n    chat = message[\"chat\"]\n    user = db.get(Users, str(chat[\"id\"]))",
+        "peekOfCode": "notion_setup_states = {}  # Notion setup flow\nasync def get_or_create_user(db: Session, telegram_data: dict) -> Users:\n    \"\"\"Get existing user or create new one from Telegram data.\"\"\"\n    message = telegram_data[\"message\"]\n    from_user = message[\"from\"]\n    chat = message[\"chat\"]\n    user = db.get(Users, str(chat[\"id\"]))\n    if not user:\n        user = Users(\n            chat_id=str(chat[\"id\"]),",
         "detail": "app.router.notification_router",
         "documentation": {}
     },
