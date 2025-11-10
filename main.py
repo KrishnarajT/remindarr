@@ -7,7 +7,6 @@ app = FastAPI()
 
 import app.db.config_db as config_db
 from app.router.notification_router import router as notification_router
-from app.router.notion_router import router as notion_router
 from app.services.notification_worker import start_worker, stop_worker
 
 
@@ -37,7 +36,6 @@ app.add_middleware(CORSMiddleware,
 
 # Mount routers under /api so frontend's API_BASE_URL + paths match
 app.include_router(notification_router, prefix="/api")
-app.include_router(notion_router, prefix="/api")
 
 
 # basic healthcheck

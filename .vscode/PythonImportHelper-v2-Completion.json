@@ -661,14 +661,6 @@
         "documentation": {}
     },
     {
-        "label": "router",
-        "importPath": "app.router.notion_router",
-        "description": "app.router.notion_router",
-        "isExtraImport": true,
-        "detail": "app.router.notion_router",
-        "documentation": {}
-    },
-    {
         "label": "start_worker",
         "importPath": "app.services.notification_worker",
         "description": "app.services.notification_worker",
@@ -1004,7 +996,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\nimport app.db.config_db as config_db\nfrom app.router.notification_router import router as notification_router\nfrom app.router.notion_router import router as notion_router\nfrom app.services.notification_worker import start_worker, stop_worker\n@asynccontextmanager\nasync def lifespan(app: FastAPI):\n    # initialize DB\n    config_db.init_db()\n    # start background reminder worker",
+        "peekOfCode": "app = FastAPI()\nimport app.db.config_db as config_db\nfrom app.router.notification_router import router as notification_router\nfrom app.services.notification_worker import start_worker, stop_worker\n@asynccontextmanager\nasync def lifespan(app: FastAPI):\n    # initialize DB\n    config_db.init_db()\n    # start background reminder worker\n    # start_worker creates an asyncio.Task; it must be called inside the running event loop",
         "detail": "main",
         "documentation": {}
     },
@@ -1013,7 +1005,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI(lifespan=lifespan)\n# CORS - allow your frontend (adjust origins)\napp.add_middleware(CORSMiddleware,\n                   allow_origins=[\"http://localhost:3000\", \"http://127.0.0.1:3000\", \"http://your-nas-ip:port\"],\n                   allow_credentials=True, allow_methods=[\"*\"], allow_headers=[\"*\"], )\n# Mount routers under /api so frontend's API_BASE_URL + paths match\napp.include_router(notification_router, prefix=\"/api\")\napp.include_router(notion_router, prefix=\"/api\")\n# basic healthcheck\n@app.get(\"/health\")",
+        "peekOfCode": "app = FastAPI(lifespan=lifespan)\n# CORS - allow your frontend (adjust origins)\napp.add_middleware(CORSMiddleware,\n                   allow_origins=[\"http://localhost:3000\", \"http://127.0.0.1:3000\", \"http://your-nas-ip:port\"],\n                   allow_credentials=True, allow_methods=[\"*\"], allow_headers=[\"*\"], )\n# Mount routers under /api so frontend's API_BASE_URL + paths match\napp.include_router(notification_router, prefix=\"/api\")\n# basic healthcheck\n@app.get(\"/health\")\nasync def health_check():",
         "detail": "main",
         "documentation": {}
     },
