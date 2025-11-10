@@ -1,38 +1,38 @@
 # db.py
-from typing import AsyncGenerator
-
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine, async_sessionmaker
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from sqlmodel import SQLModel
-from sqlmodel.ext.asyncio.session import AsyncSession  # <- use SQLModel's AsyncSession type
-
 from app.constants.constants import Settings
 
-# create the db url from settings where there is no db url
-db_url = f'postgresql+asyncpg://{Settings().db_user}:{Settings().db_password}@{Settings().db_host}:{Settings().db_port}/{Settings().db_name}'
+# Build DB URL from environment
+db_url = (
+    f"postgresql+psycopg2://"
+    f"{Settings().db_user}:{Settings().db_password}@"
+    f"{Settings().db_host}:{Settings().db_port}/{Settings().db_name}"
+)
 
-# Create async engine and sessionmaker
-engine: AsyncEngine = create_async_engine(db_url, echo=True, future=True)
-async_session = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+# Create the engine (synchronous)
+engine = create_engine(db_url, echo=True, future=True)
 
+# Session factory
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-async def init_db() -> None:
+def init_db() -> None:
     """
-    One-time DB initialization:
-    - Create schema if missing
-    - Create all tables from SQLModel metadata
-    Call this once during app startup (lifespan).
+    Initialize the database (run once on startup):
+    - Creates schema if missing
+    - Creates all tables
     """
-    async with engine.begin() as conn:
-        # create schema if not exists
-        await conn.exec_driver_sql(f"CREATE SCHEMA IF NOT EXISTS {Settings().db_schema}")
-        # create tables in the engine's metadata context
-        await conn.run_sync(SQLModel.metadata.create_all)
+    with engine.begin() as conn:
+        conn.execute(f"CREATE SCHEMA IF NOT EXISTS {Settings().db_schema}")
+        SQLModel.metadata.create_all(bind=conn)
 
-
-async def get_session() -> AsyncGenerator[AsyncSession, None]:
+def get_session():
     """
-    FastAPI dependency. Yields an AsyncSession per request and closes it after.
-    Use: session: AsyncSession = Depends(get_session)
+    FastAPI dependency — yields a database session per request.
     """
-    async with async_session() as session:
-        yield session
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

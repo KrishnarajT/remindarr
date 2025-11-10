@@ -84,43 +84,51 @@
         "documentation": {}
     },
     {
-        "label": "AsyncGenerator",
-        "importPath": "typing",
-        "description": "typing",
+        "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
         "isExtraImport": true,
-        "detail": "typing",
+        "detail": "sqlalchemy",
         "documentation": {}
     },
     {
-        "label": "Optional",
-        "importPath": "typing",
-        "description": "typing",
+        "label": "Column",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
         "isExtraImport": true,
-        "detail": "typing",
+        "detail": "sqlalchemy",
         "documentation": {}
     },
     {
-        "label": "create_async_engine",
-        "importPath": "sqlalchemy.ext.asyncio",
-        "description": "sqlalchemy.ext.asyncio",
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
         "isExtraImport": true,
-        "detail": "sqlalchemy.ext.asyncio",
+        "detail": "sqlalchemy",
         "documentation": {}
     },
     {
-        "label": "AsyncEngine",
-        "importPath": "sqlalchemy.ext.asyncio",
-        "description": "sqlalchemy.ext.asyncio",
+        "label": "func",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
         "isExtraImport": true,
-        "detail": "sqlalchemy.ext.asyncio",
+        "detail": "sqlalchemy",
         "documentation": {}
     },
     {
-        "label": "async_sessionmaker",
-        "importPath": "sqlalchemy.ext.asyncio",
-        "description": "sqlalchemy.ext.asyncio",
+        "label": "sessionmaker",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
         "isExtraImport": true,
-        "detail": "sqlalchemy.ext.asyncio",
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
         "documentation": {}
     },
     {
@@ -145,14 +153,6 @@
         "description": "sqlmodel",
         "isExtraImport": true,
         "detail": "sqlmodel",
-        "documentation": {}
-    },
-    {
-        "label": "AsyncSession",
-        "importPath": "sqlmodel.ext.asyncio.session",
-        "description": "sqlmodel.ext.asyncio.session",
-        "isExtraImport": true,
-        "detail": "sqlmodel.ext.asyncio.session",
         "documentation": {}
     },
     {
@@ -213,27 +213,11 @@
         "documentation": {}
     },
     {
-        "label": "Column",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
         "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "DateTime",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
-        "documentation": {}
-    },
-    {
-        "label": "func",
-        "importPath": "sqlalchemy",
-        "description": "sqlalchemy",
-        "isExtraImport": true,
-        "detail": "sqlalchemy",
+        "detail": "typing",
         "documentation": {}
     },
     {
@@ -274,14 +258,6 @@
         "description": "fastapi",
         "isExtraImport": true,
         "detail": "fastapi",
-        "documentation": {}
-    },
-    {
-        "label": "Session",
-        "importPath": "sqlalchemy.orm",
-        "description": "sqlalchemy.orm",
-        "isExtraImport": true,
-        "detail": "sqlalchemy.orm",
         "documentation": {}
     },
     {
@@ -484,20 +460,47 @@
         "documentation": {}
     },
     {
-        "label": "db_url",
-        "kind": 5,
+        "label": "init_db",
+        "kind": 2,
         "importPath": "app.db.config_db",
         "description": "app.db.config_db",
-        "peekOfCode": "db_url = f'postgresql+asyncpg://{Settings().db_user}:{Settings().db_password}@{Settings().db_host}:{Settings().db_port}/{Settings().db_name}'\n# Create async engine and sessionmaker\nengine: AsyncEngine = create_async_engine(db_url, echo=True, future=True)\nasync_session = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)\nasync def init_db() -> None:\n    \"\"\"\n    One-time DB initialization:\n    - Create schema if missing\n    - Create all tables from SQLModel metadata\n    Call this once during app startup (lifespan).",
+        "peekOfCode": "def init_db() -> None:\n    \"\"\"\n    Initialize the database (run once on startup):\n    - Creates schema if missing\n    - Creates all tables\n    \"\"\"\n    with engine.begin() as conn:\n        conn.execute(f\"CREATE SCHEMA IF NOT EXISTS {Settings().db_schema}\")\n        SQLModel.metadata.create_all(bind=conn)\ndef get_session():",
         "detail": "app.db.config_db",
         "documentation": {}
     },
     {
-        "label": "async_session",
+        "label": "get_session",
+        "kind": 2,
+        "importPath": "app.db.config_db",
+        "description": "app.db.config_db",
+        "peekOfCode": "def get_session():\n    \"\"\"\n    FastAPI dependency — yields a database session per request.\n    \"\"\"\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()",
+        "detail": "app.db.config_db",
+        "documentation": {}
+    },
+    {
+        "label": "db_url",
         "kind": 5,
         "importPath": "app.db.config_db",
         "description": "app.db.config_db",
-        "peekOfCode": "async_session = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)\nasync def init_db() -> None:\n    \"\"\"\n    One-time DB initialization:\n    - Create schema if missing\n    - Create all tables from SQLModel metadata\n    Call this once during app startup (lifespan).\n    \"\"\"\n    async with engine.begin() as conn:\n        # create schema if not exists",
+        "peekOfCode": "db_url = (\n    f\"postgresql+psycopg2://\"\n    f\"{Settings().db_user}:{Settings().db_password}@\"\n    f\"{Settings().db_host}:{Settings().db_port}/{Settings().db_name}\"\n)\n# Create the engine (synchronous)\nengine = create_engine(db_url, echo=True, future=True)\n# Session factory\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\ndef init_db() -> None:",
+        "detail": "app.db.config_db",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "app.db.config_db",
+        "description": "app.db.config_db",
+        "peekOfCode": "engine = create_engine(db_url, echo=True, future=True)\n# Session factory\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\ndef init_db() -> None:\n    \"\"\"\n    Initialize the database (run once on startup):\n    - Creates schema if missing\n    - Creates all tables\n    \"\"\"\n    with engine.begin() as conn:",
+        "detail": "app.db.config_db",
+        "documentation": {}
+    },
+    {
+        "label": "SessionLocal",
+        "kind": 5,
+        "importPath": "app.db.config_db",
+        "description": "app.db.config_db",
+        "peekOfCode": "SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\ndef init_db() -> None:\n    \"\"\"\n    Initialize the database (run once on startup):\n    - Creates schema if missing\n    - Creates all tables\n    \"\"\"\n    with engine.begin() as conn:\n        conn.execute(f\"CREATE SCHEMA IF NOT EXISTS {Settings().db_schema}\")\n        SQLModel.metadata.create_all(bind=conn)",
         "detail": "app.db.config_db",
         "documentation": {}
     },
