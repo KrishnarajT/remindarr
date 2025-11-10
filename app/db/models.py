@@ -12,6 +12,37 @@ class Base(SQLModel):
     __table_args__ = {"schema": Settings().db_schema}
 
 
+class Users(Base, table=True):
+    """Store user information and integration settings."""
+    __tablename__ = "users"
+
+    # Telegram Info (from message.from and message.chat)
+    chat_id: str = Field(primary_key=True, description="Telegram chat/user ID")
+    username: Optional[str] = Field(default=None, description="Telegram username")
+    first_name: Optional[str] = Field(default=None, description="User's first name from Telegram")
+    language_code: Optional[str] = Field(default=None, description="User's language preference")
+    is_bot: bool = Field(default=False, description="Whether the user is a bot")
+
+    # Notion Integration
+    notion_api_key: Optional[str] = Field(default=None, description="Notion API integration token")
+    notion_workspace_name: Optional[str] = Field(default=None, description="Name of the Notion workspace")
+    notion_enabled: bool = Field(default=False, description="Whether Notion integration is enabled")
+
+    # User Preferences & State
+    timezone: Optional[str] = Field(default="UTC", description="User's timezone for scheduling")
+    notifications_enabled: bool = Field(default=True, description="Whether notifications are enabled")
+    
+    # Timestamps
+    created_at: datetime = Field(
+        sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    )
+    updated_at: datetime = Field(
+        sa_column=Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
+    )
+    last_active_at: datetime = Field(
+        sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    )
+
 class Reminders(Base, table=True):
     __tablename__ = "reminders"
 
@@ -30,9 +61,9 @@ class Reminders(Base, table=True):
     reminder_name: str = Field(nullable=False, max_length=255)
     reminder_content: str = Field(nullable=False)
 
-    # Repeat interval (in minutes)
-    # default to 24 hours expressed in minutes
-    interval_minutes: int = Field(default=0, nullable=False, description="Repeat interval in minutes")
+    # Repeat interval (in minutes). None means one-time reminder.
+    # default to None (one-time) to avoid accidental recurring behavior
+    interval_minutes: Optional[int] = Field(default=None, nullable=True, description="Repeat interval in minutes")
 
     # Next time this reminder should trigger
     next_trigger_at: Optional[datetime] = Field(default=None, description="Next reminder trigger time")

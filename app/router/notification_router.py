@@ -1,12 +1,43 @@
 from fastapi import APIRouter, Request, Depends
 from sqlalchemy.orm import Session
 from app.db.config_db import get_session
-from app.db.models import Reminders
+from app.db.models import Reminders, Users
 from app.services.telegram import send_message
 from app.constants.constants import settings
 from app.utils.logging_utils import logger
 from app.utils.time_utils import parse_time_unit, calculate_next_trigger
 from datetime import datetime, timedelta
+from sqlmodel import select
+
+async def get_or_create_user(db: Session, telegram_data: dict) -> Users:
+    """Get existing user or create new one from Telegram data."""
+    message = telegram_data["message"]
+    from_user = message["from"]
+    chat = message["chat"]
+    
+    # Try to find existing user
+    user = db.get(Users, str(chat["id"]))
+    
+    if not user:
+        # Create new user
+        user = Users(
+            chat_id=str(chat["id"]),
+            username=from_user.get("username"),
+            first_name=from_user.get("first_name"),
+            language_code=from_user.get("language_code"),
+            is_bot=from_user.get("is_bot", False),
+        )
+        db.add(user)
+    else:
+        # Update user info if changed
+        user.username = from_user.get("username", user.username)
+        user.first_name = from_user.get("first_name", user.first_name)
+        user.language_code = from_user.get("language_code", user.language_code)
+        user.last_active_at = datetime.utcnow()
+        db.add(user)
+    
+    db.commit()
+    return user
 
 router = APIRouter(prefix="/notifications", tags=["notifications"])
 
@@ -34,6 +65,10 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
 
         data = await request.json()
         logger.info(f"Incoming Telegram data: {data}")
+
+        # Create or update user record
+        user = await get_or_create_user(db, data)
+        
     except Exception as e:
         logger.error(f"Failed to parse webhook JSON: {e}")
         return JSONResponse(content={"status": "error", "reason": "invalid JSON"})

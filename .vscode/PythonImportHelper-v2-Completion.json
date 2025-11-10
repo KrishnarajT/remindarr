@@ -164,6 +164,22 @@
         "documentation": {}
     },
     {
+        "label": "select",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "select",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
         "label": "Settings",
         "importPath": "app.constants.constants",
         "description": "app.constants.constants",
@@ -173,6 +189,14 @@
     },
     {
         "label": "Settings",
+        "importPath": "app.constants.constants",
+        "description": "app.constants.constants",
+        "isExtraImport": true,
+        "detail": "app.constants.constants",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
         "importPath": "app.constants.constants",
         "description": "app.constants.constants",
         "isExtraImport": true,
@@ -254,6 +278,14 @@
         "documentation": {}
     },
     {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
         "label": "datetime",
         "importPath": "datetime",
         "description": "datetime",
@@ -326,6 +358,38 @@
         "documentation": {}
     },
     {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Request",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
         "label": "FastAPI",
         "importPath": "fastapi",
         "description": "fastapi",
@@ -339,6 +403,14 @@
         "description": "fastapi",
         "isExtraImport": true,
         "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
         "documentation": {}
     },
     {
@@ -367,6 +439,14 @@
         "documentation": {}
     },
     {
+        "label": "get_session",
+        "importPath": "app.db.config_db",
+        "description": "app.db.config_db",
+        "isExtraImport": true,
+        "detail": "app.db.config_db",
+        "documentation": {}
+    },
+    {
         "label": "Reminders",
         "importPath": "app.db.models",
         "description": "app.db.models",
@@ -375,7 +455,31 @@
         "documentation": {}
     },
     {
+        "label": "Users",
+        "importPath": "app.db.models",
+        "description": "app.db.models",
+        "isExtraImport": true,
+        "detail": "app.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Users",
+        "importPath": "app.db.models",
+        "description": "app.db.models",
+        "isExtraImport": true,
+        "detail": "app.db.models",
+        "documentation": {}
+    },
+    {
         "label": "Reminders",
+        "importPath": "app.db.models",
+        "description": "app.db.models",
+        "isExtraImport": true,
+        "detail": "app.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Users",
         "importPath": "app.db.models",
         "description": "app.db.models",
         "isExtraImport": true,
@@ -396,6 +500,22 @@
         "description": "app.services.telegram",
         "isExtraImport": true,
         "detail": "app.services.telegram",
+        "documentation": {}
+    },
+    {
+        "label": "send_message",
+        "importPath": "app.services.telegram",
+        "description": "app.services.telegram",
+        "isExtraImport": true,
+        "detail": "app.services.telegram",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "app.utils.logging_utils",
+        "description": "app.utils.logging_utils",
+        "isExtraImport": true,
+        "detail": "app.utils.logging_utils",
         "documentation": {}
     },
     {
@@ -424,6 +544,14 @@
     },
     {
         "label": "calculate_next_trigger",
+        "importPath": "app.utils.time_utils",
+        "description": "app.utils.time_utils",
+        "isExtraImport": true,
+        "detail": "app.utils.time_utils",
+        "documentation": {}
+    },
+    {
+        "label": "format_datetime_for_user",
         "importPath": "app.utils.time_utils",
         "description": "app.utils.time_utils",
         "isExtraImport": true,
@@ -461,6 +589,15 @@
         "importPath": "asyncio",
         "description": "asyncio",
         "detail": "asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "pytz",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytz",
+        "description": "pytz",
+        "detail": "pytz",
         "documentation": {}
     },
     {
@@ -511,6 +648,14 @@
         "description": "app.router.notification_router",
         "isExtraImport": true,
         "detail": "app.router.notification_router",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "importPath": "app.router.notion_router",
+        "description": "app.router.notion_router",
+        "isExtraImport": true,
+        "detail": "app.router.notion_router",
         "documentation": {}
     },
     {
@@ -678,7 +823,16 @@
         "kind": 6,
         "importPath": "app.db.models",
         "description": "app.db.models",
-        "peekOfCode": "class Base(SQLModel):\n    __table_args__ = {\"schema\": Settings().db_schema}\nclass Reminders(Base, table=True):\n    __tablename__ = \"reminders\"\n    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True, index=True)\n    created_at: Optional[datetime] = Field(\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), nullable=False)\n    )\n    updated_at: Optional[datetime] = Field(\n        sa_column=Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)",
+        "peekOfCode": "class Base(SQLModel):\n    __table_args__ = {\"schema\": Settings().db_schema}\nclass Users(Base, table=True):\n    \"\"\"Store user information and integration settings.\"\"\"\n    __tablename__ = \"users\"\n    # Telegram Info (from message.from and message.chat)\n    chat_id: str = Field(primary_key=True, description=\"Telegram chat/user ID\")\n    username: Optional[str] = Field(default=None, description=\"Telegram username\")\n    first_name: Optional[str] = Field(default=None, description=\"User's first name from Telegram\")\n    language_code: Optional[str] = Field(default=None, description=\"User's language preference\")",
+        "detail": "app.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Users",
+        "kind": 6,
+        "importPath": "app.db.models",
+        "description": "app.db.models",
+        "peekOfCode": "class Users(Base, table=True):\n    \"\"\"Store user information and integration settings.\"\"\"\n    __tablename__ = \"users\"\n    # Telegram Info (from message.from and message.chat)\n    chat_id: str = Field(primary_key=True, description=\"Telegram chat/user ID\")\n    username: Optional[str] = Field(default=None, description=\"Telegram username\")\n    first_name: Optional[str] = Field(default=None, description=\"User's first name from Telegram\")\n    language_code: Optional[str] = Field(default=None, description=\"User's language preference\")\n    is_bot: bool = Field(default=False, description=\"Whether the user is a bot\")\n    # Notion Integration",
         "detail": "app.db.models",
         "documentation": {}
     },
@@ -710,6 +864,24 @@
         "documentation": {}
     },
     {
+        "label": "router",
+        "kind": 5,
+        "importPath": "app.router.notion_router",
+        "description": "app.router.notion_router",
+        "peekOfCode": "router = APIRouter(prefix=\"/notion\", tags=[\"notion\"])\n# Temporary in-memory state store for ongoing conversations\nnotion_setup_states = {}\n@router.post(\"/webhook\")\nasync def notion_webhook(request: Request, db: Session = Depends(get_session)):\n    try:\n        data = await request.json()\n        logger.info(f\"Incoming Notion webhook data: {data}\")\n        chat_id = data[\"message\"][\"chat\"][\"id\"]\n        text = data[\"message\"].get(\"text\", \"\").strip()",
+        "detail": "app.router.notion_router",
+        "documentation": {}
+    },
+    {
+        "label": "notion_setup_states",
+        "kind": 5,
+        "importPath": "app.router.notion_router",
+        "description": "app.router.notion_router",
+        "peekOfCode": "notion_setup_states = {}\n@router.post(\"/webhook\")\nasync def notion_webhook(request: Request, db: Session = Depends(get_session)):\n    try:\n        data = await request.json()\n        logger.info(f\"Incoming Notion webhook data: {data}\")\n        chat_id = data[\"message\"][\"chat\"][\"id\"]\n        text = data[\"message\"].get(\"text\", \"\").strip()\n    except Exception as e:\n        logger.error(f\"Failed to parse webhook JSON: {e}\")",
+        "detail": "app.router.notion_router",
+        "documentation": {}
+    },
+    {
         "label": "start_worker",
         "kind": 2,
         "importPath": "app.services.notification_worker",
@@ -723,7 +895,7 @@
         "kind": 5,
         "importPath": "app.services.notification_worker",
         "description": "app.services.notification_worker",
-        "peekOfCode": "CHECK_INTERVAL_SECONDS = 60  # how often to poll for due reminders\nasync def _reminder_loop(app) -> None:\n    \"\"\"Background loop: query due reminders, send messages, reschedule.\"\"\"\n    engine = config_db.engine\n    # use a stop event stored on the app state to allow graceful shutdown\n    stop_event: asyncio.Event = app.state._reminder_stop\n    while not stop_event.is_set():\n        try:\n            now = datetime.datetime.utcnow()\n            # Use a DB session to select due reminders and lock rows to avoid double-processing",
+        "peekOfCode": "CHECK_INTERVAL_SECONDS = 60  # how often to poll for due reminders\nasync def _reminder_loop(app) -> None:\n    \"\"\"Background loop: query due reminders, send messages, reschedule.\"\"\"\n    engine = config_db.engine\n    # use a stop event stored on the app state to allow graceful shutdown\n    stop_event: asyncio.Event = app.state._reminder_stop\n    while not stop_event.is_set():\n        try:\n            utc_now = datetime.datetime.now(pytz.UTC)\n            # Use a DB session to select due reminders and lock rows to avoid double-processing",
         "detail": "app.services.notification_worker",
         "documentation": {}
     },
@@ -750,7 +922,43 @@
         "kind": 2,
         "importPath": "app.utils.time_utils",
         "description": "app.utils.time_utils",
-        "peekOfCode": "def parse_time_unit(unit_text: str) -> Tuple[Optional[int], Optional[str]]:\n    \"\"\"Convert user input time unit to multiplier and normalized unit name.\"\"\"\n    unit = unit_text.strip().lower()\n    if unit in (\"m\", \"min\", \"mins\", \"minute\", \"minutes\"):\n        return 1, \"minutes\"\n    elif unit in (\"h\", \"hr\", \"hrs\", \"hour\", \"hours\"):\n        return 60, \"hours\"\n    elif unit in (\"d\", \"day\", \"days\"):\n        return 60 * 24, \"days\"\n    return None, None",
+        "peekOfCode": "def parse_time_unit(unit_text: str) -> Tuple[Optional[int], Optional[str]]:\n    \"\"\"Convert user input time unit to multiplier and normalized unit name.\n    Returns (multiplier_in_minutes, normalized_unit_name) or (None, None) if\n    the unit isn't recognized.\n    \"\"\"\n    unit = unit_text.strip().lower()\n    if unit in (\"m\", \"min\", \"mins\", \"minute\", \"minutes\"):\n        return 1, \"minutes\"\n    elif unit in (\"h\", \"hr\", \"hrs\", \"hour\", \"hours\"):\n        return 60, \"hours\"",
+        "detail": "app.utils.time_utils",
+        "documentation": {}
+    },
+    {
+        "label": "get_user_timezone",
+        "kind": 2,
+        "importPath": "app.utils.time_utils",
+        "description": "app.utils.time_utils",
+        "peekOfCode": "def get_user_timezone(tz_name: Optional[str]):\n    \"\"\"Return a timezone object (ZoneInfo) or UTC on error/None.\"\"\"\n    if not tz_name:\n        return ZoneInfo(\"UTC\") if ZoneInfo else timezone.utc\n    try:\n        return ZoneInfo(tz_name) if ZoneInfo else timezone.utc\n    except ZoneInfoNotFoundError:\n        return ZoneInfo(\"UTC\") if ZoneInfo else timezone.utc\ndef get_time_in_timezone(dt: datetime, tz_name: Optional[str]) -> datetime:\n    \"\"\"Convert a naive or UTC datetime to the user's timezone.",
+        "detail": "app.utils.time_utils",
+        "documentation": {}
+    },
+    {
+        "label": "get_time_in_timezone",
+        "kind": 2,
+        "importPath": "app.utils.time_utils",
+        "description": "app.utils.time_utils",
+        "peekOfCode": "def get_time_in_timezone(dt: datetime, tz_name: Optional[str]) -> datetime:\n    \"\"\"Convert a naive or UTC datetime to the user's timezone.\n    The returned datetime will have tzinfo set to the user's tz.\n    \"\"\"\n    if dt.tzinfo is None:\n        # assume naive datetimes are UTC\n        dt = dt.replace(tzinfo=timezone.utc)\n    user_tz = get_user_timezone(tz_name)\n    return dt.astimezone(user_tz)\ndef now_in_timezone(tz_name: Optional[str]) -> Tuple[datetime, datetime]:",
+        "detail": "app.utils.time_utils",
+        "documentation": {}
+    },
+    {
+        "label": "now_in_timezone",
+        "kind": 2,
+        "importPath": "app.utils.time_utils",
+        "description": "app.utils.time_utils",
+        "peekOfCode": "def now_in_timezone(tz_name: Optional[str]) -> Tuple[datetime, datetime]:\n    \"\"\"Return (utc_now, local_now) where local_now is utc_now in user's tz.\"\"\"\n    utc_now = datetime.now(timezone.utc)\n    user_tz = get_user_timezone(tz_name)\n    local_now = utc_now.astimezone(user_tz)\n    return utc_now, local_now\ndef format_datetime_for_user(dt: datetime, tz_name: Optional[str]) -> str:\n    \"\"\"Format datetime in user's timezone for display.\"\"\"\n    local_dt = get_time_in_timezone(dt, tz_name)\n    tz_abbr = local_dt.tzname() or \"UTC\"",
+        "detail": "app.utils.time_utils",
+        "documentation": {}
+    },
+    {
+        "label": "format_datetime_for_user",
+        "kind": 2,
+        "importPath": "app.utils.time_utils",
+        "description": "app.utils.time_utils",
+        "peekOfCode": "def format_datetime_for_user(dt: datetime, tz_name: Optional[str]) -> str:\n    \"\"\"Format datetime in user's timezone for display.\"\"\"\n    local_dt = get_time_in_timezone(dt, tz_name)\n    tz_abbr = local_dt.tzname() or \"UTC\"\n    return f\"{local_dt.strftime('%Y-%m-%d %H:%M')} {tz_abbr}\"\ndef calculate_next_trigger(\n    amount: int,\n    multiplier: int,\n    is_recurring: bool,\n    timezone: Optional[str] = None,",
         "detail": "app.utils.time_utils",
         "documentation": {}
     },
@@ -759,7 +967,7 @@
         "kind": 2,
         "importPath": "app.utils.time_utils",
         "description": "app.utils.time_utils",
-        "peekOfCode": "def calculate_next_trigger(\n    amount: int,\n    multiplier: int,\n    is_recurring: bool,\n) -> Tuple[Optional[int], datetime]:\n    \"\"\"Calculate interval_minutes and next_trigger_at for a reminder.\n    Args:\n        amount: The number of units (e.g. 5 hours = amount 5)\n        multiplier: Minutes per unit (e.g. 60 for hours)\n        is_recurring: If True, sets up recurring interval",
+        "peekOfCode": "def calculate_next_trigger(\n    amount: int,\n    multiplier: int,\n    is_recurring: bool,\n    timezone: Optional[str] = None,\n) -> Tuple[Optional[int], datetime]:\n    \"\"\"Calculate interval_minutes and next_trigger_at in UTC.\n    - amount: numeric amount in the chosen unit\n    - multiplier: minutes per unit (e.g. 60 for hours)\n    - is_recurring: whether the reminder should repeat",
         "detail": "app.utils.time_utils",
         "documentation": {}
     },
@@ -768,7 +976,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\nimport app.db.config_db as config_db\nfrom app.router.notification_router import router as notification_router\nfrom app.services.notification_worker import start_worker, stop_worker\n@asynccontextmanager\nasync def lifespan(app: FastAPI):\n    # initialize DB\n    config_db.init_db()\n    # start background reminder worker\n    # start_worker creates an asyncio.Task; it must be called inside the running event loop",
+        "peekOfCode": "app = FastAPI()\nimport app.db.config_db as config_db\nfrom app.router.notification_router import router as notification_router\nfrom app.router.notion_router import router as notion_router\nfrom app.services.notification_worker import start_worker, stop_worker\n@asynccontextmanager\nasync def lifespan(app: FastAPI):\n    # initialize DB\n    config_db.init_db()\n    # start background reminder worker",
         "detail": "main",
         "documentation": {}
     },
@@ -777,7 +985,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI(lifespan=lifespan)\n# CORS - allow your frontend (adjust origins)\napp.add_middleware(CORSMiddleware,\n                   allow_origins=[\"http://localhost:3000\", \"http://127.0.0.1:3000\", \"http://your-nas-ip:port\"],\n                   allow_credentials=True, allow_methods=[\"*\"], allow_headers=[\"*\"], )\n# Mount router under /api so frontend's API_BASE_URL + paths match\napp.include_router(notification_router, prefix=\"/api\")\n# basic healthcheck\n@app.get(\"/health\")\nasync def health_check():",
+        "peekOfCode": "app = FastAPI(lifespan=lifespan)\n# CORS - allow your frontend (adjust origins)\napp.add_middleware(CORSMiddleware,\n                   allow_origins=[\"http://localhost:3000\", \"http://127.0.0.1:3000\", \"http://your-nas-ip:port\"],\n                   allow_credentials=True, allow_methods=[\"*\"], allow_headers=[\"*\"], )\n# Mount routers under /api so frontend's API_BASE_URL + paths match\napp.include_router(notification_router, prefix=\"/api\")\napp.include_router(notion_router, prefix=\"/api\")\n# basic healthcheck\n@app.get(\"/health\")",
         "detail": "main",
         "documentation": {}
     },
