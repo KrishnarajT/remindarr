@@ -9,6 +9,7 @@ from enum import Enum
 import re
 import json
 import requests
+from datetime import datetime, timedelta
 
 from app.db.config_db import get_session
 from app.db.models import Reminders, Users
@@ -171,32 +172,81 @@ def get_notion_database(token: str, db_id: str) -> tuple[bool, Optional[dict]]:
 
 
 def query_notion_database(
-    token: str, db_id: str, status_prop: str = None, status_prop_type: str = None
+    token: str,
+    db_id: str,
+    time_prop: str = None,
+    status_prop: str = None,
+    status_prop_type: str = None,
 ) -> tuple[bool, list]:
-    """Query Notion database pages with optional status filtering."""
+    """Query Notion database for incomplete tasks due in the next 24 hours."""
     headers = {
         "Authorization": f"Bearer {token}",
         "Notion-Version": "2022-06-28",
         "Content-Type": "application/json",
     }
 
-    body = {}
-    # Filter for incomplete tasks if status property is provided
+    # Calculate time range: now to 24 hours from now
+    now = datetime.utcnow()
+    tomorrow = now + timedelta(hours=24)
+
+    # Format dates in ISO 8601 format (YYYY-MM-DDTHH:MM:SS.000Z)
+    now_iso = now.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+    tomorrow_iso = tomorrow.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
+    filters = []
+
+    # Add date filter if time property exists
+    if time_prop:
+        filters.append(
+            {
+                "property": time_prop,
+                "date": {
+                    "on_or_after": now_iso,  # After now
+                    "on_or_before": tomorrow_iso,  # Before 24 hours from now
+                },
+            }
+        )
+
+    # Add status filter for incomplete tasks
     if status_prop:
         if status_prop_type == "checkbox":
             # For checkbox: False = not done
-            body["filter"] = {"property": status_prop, "checkbox": {"equals": False}}
-        elif status_prop_type == "select" or status_prop_type == "status":
-            # For select/status: exclude "Done" or "Completed"
-            body["filter"] = {
-                "and": [
-                    {"property": status_prop, "select": {"does_not_equal": "Done"}},
-                    {
-                        "property": status_prop,
-                        "select": {"does_not_equal": "Completed"},
-                    },
-                ]
-            }
+            filters.append({"property": status_prop, "checkbox": {"equals": False}})
+        elif status_prop_type == "select":
+            # For select: exclude "Done" or "Completed"
+            filters.append(
+                {
+                    "or": [
+                        {"property": status_prop, "select": {"does_not_equal": "Done"}},
+                        {
+                            "property": status_prop,
+                            "select": {"does_not_equal": "Completed"},
+                        },
+                    ]
+                }
+            )
+        elif status_prop_type == "status":
+            # For status property: exclude completed statuses
+            filters.append(
+                {
+                    "or": [
+                        {"property": status_prop, "status": {"does_not_equal": "Done"}},
+                        {
+                            "property": status_prop,
+                            "status": {"does_not_equal": "Completed"},
+                        },
+                    ]
+                }
+            )
+
+    # Build the query body with combined filters
+    body = {}
+    if filters:
+        if len(filters) == 1:
+            body["filter"] = filters[0]
+        else:
+            # Combine multiple filters with AND
+            body["filter"] = {"and": filters}
 
     try:
         resp = requests.post(
@@ -698,10 +748,16 @@ async def handle_notion_flow(
             return
 
         # Perform import
-        send_message(settings.bot_token, chat_id, "⏳ Importing tasks...")
+        send_message(
+            settings.bot_token, chat_id, "⏳ Importing tasks due in next 24 hours..."
+        )
 
         success, pages = query_notion_database(
-            user.notion_api_key, db_id, status_prop, status_prop_type
+            user.notion_api_key,
+            db_id,
+            time_prop=time_prop,  # Add this
+            status_prop=status_prop,
+            status_prop_type=status_prop_type,
         )
         if not success:
             send_message(
