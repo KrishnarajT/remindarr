@@ -4,7 +4,7 @@ from typing import Optional, List, Dict, Any
 
 from sqlalchemy import Column, DateTime, func, JSON, String
 from sqlmodel import SQLModel, Field
-
+from sqlalchemy import Text
 from app.constants.constants import Settings
 
 
@@ -112,7 +112,7 @@ class Reminders(Base, table=True):
 
     active: bool = Field(default=True, nullable=False)
 
-    reminder_name: str = Field(nullable=False, max_length=255)
+    reminder_name: str = Field(sa_column=Column(Text))
     reminder_content: str = Field(nullable=False)
 
     # Source of the reminder: 'user' (manually created) or 'notion' (imported from Notion)

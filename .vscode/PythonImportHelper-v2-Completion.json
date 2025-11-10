@@ -140,6 +140,14 @@
         "documentation": {}
     },
     {
+        "label": "Text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
         "label": "SQLModel",
         "importPath": "sqlmodel",
         "description": "sqlmodel",
