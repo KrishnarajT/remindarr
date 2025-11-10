@@ -406,6 +406,14 @@
         "documentation": {}
     },
     {
+        "label": "JSONResponse",
+        "importPath": "fastapi.responses",
+        "description": "fastapi.responses",
+        "isExtraImport": true,
+        "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
         "label": "Session",
         "importPath": "sqlalchemy.orm",
         "description": "sqlalchemy.orm",
@@ -572,14 +580,6 @@
         "description": "app.utils.time_utils",
         "isExtraImport": true,
         "detail": "app.utils.time_utils",
-        "documentation": {}
-    },
-    {
-        "label": "JSONResponse",
-        "importPath": "fastapi.responses",
-        "description": "fastapi.responses",
-        "isExtraImport": true,
-        "detail": "fastapi.responses",
         "documentation": {}
     },
     {
@@ -850,7 +850,7 @@
         "kind": 5,
         "importPath": "app.router.notification_router",
         "description": "app.router.notification_router",
-        "peekOfCode": "router = APIRouter(prefix=\"/notifications\", tags=[\"notifications\"])\n# Temporary in-memory state store for ongoing conversations\nuser_states = {}\n@router.get(\"/test\")\nasync def test_notification(db: Session = Depends(get_session)):\n    try:\n        send_message(settings.bot_token, settings.chat_id, \"Hi from Remindarr!\")\n        return {\"status\": \"success\", \"message\": \"Test notification sent\"}\n    except Exception as e:\n        logger.info(f\"Failed to send test notification: {e}\")",
+        "peekOfCode": "router = APIRouter(prefix=\"/notifications\", tags=[\"notifications\"])\n# In-memory state stores\nuser_states = {}          # Reminder creation flow\nnotion_setup_states = {}  # Notion setup flow\n# --------------------------\n# USER UTIL\n# --------------------------\nasync def get_or_create_user(db: Session, telegram_data: dict) -> Users:\n    \"\"\"Get existing user or create new one from Telegram data.\"\"\"\n    message = telegram_data[\"message\"]",
         "detail": "app.router.notification_router",
         "documentation": {}
     },
@@ -859,7 +859,16 @@
         "kind": 5,
         "importPath": "app.router.notification_router",
         "description": "app.router.notification_router",
-        "peekOfCode": "user_states = {}\n@router.get(\"/test\")\nasync def test_notification(db: Session = Depends(get_session)):\n    try:\n        send_message(settings.bot_token, settings.chat_id, \"Hi from Remindarr!\")\n        return {\"status\": \"success\", \"message\": \"Test notification sent\"}\n    except Exception as e:\n        logger.info(f\"Failed to send test notification: {e}\")\n        return {\"status\": \"error\", \"message\": str(e)}\nfrom fastapi.responses import JSONResponse",
+        "peekOfCode": "user_states = {}          # Reminder creation flow\nnotion_setup_states = {}  # Notion setup flow\n# --------------------------\n# USER UTIL\n# --------------------------\nasync def get_or_create_user(db: Session, telegram_data: dict) -> Users:\n    \"\"\"Get existing user or create new one from Telegram data.\"\"\"\n    message = telegram_data[\"message\"]\n    from_user = message[\"from\"]\n    chat = message[\"chat\"]",
+        "detail": "app.router.notification_router",
+        "documentation": {}
+    },
+    {
+        "label": "notion_setup_states",
+        "kind": 5,
+        "importPath": "app.router.notification_router",
+        "description": "app.router.notification_router",
+        "peekOfCode": "notion_setup_states = {}  # Notion setup flow\n# --------------------------\n# USER UTIL\n# --------------------------\nasync def get_or_create_user(db: Session, telegram_data: dict) -> Users:\n    \"\"\"Get existing user or create new one from Telegram data.\"\"\"\n    message = telegram_data[\"message\"]\n    from_user = message[\"from\"]\n    chat = message[\"chat\"]\n    user = db.get(Users, str(chat[\"id\"]))",
         "detail": "app.router.notification_router",
         "documentation": {}
     },
