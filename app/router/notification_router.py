@@ -5,6 +5,7 @@ from app.db.models import Reminders
 from app.services.telegram import send_message
 from app.constants.constants import settings
 from app.utils.logging_utils import logger
+from app.utils.time_utils import parse_time_unit, calculate_next_trigger
 from datetime import datetime, timedelta
 
 router = APIRouter(prefix="/notifications", tags=["notifications"])
@@ -61,38 +62,75 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_session))
     # Step 1: Get name
     if state["step"] == 1:
         state["data"]["name"] = text
-        send_message(settings.bot_token, chat_id, "How many hours until I should remind you?")
+        send_message(settings.bot_token, chat_id, "Should this be a one-time reminder or recurring? Reply with: once/recurring")
         state["step"] = 2
         return {"status": "ok"}
 
-    # Step 2: Get interval hours
+    # Step 2: Get reminder type (one-time vs recurring)
     if state["step"] == 2:
-        try:
-            hours = int(text)
-            state["data"]["interval_hours"] = hours
-            send_message(settings.bot_token, chat_id, "What message should I send when reminding you?")
-            state["step"] = 3
-        except ValueError:
-            send_message(settings.bot_token, chat_id, "Please enter a valid number of hours.")
+        reminder_type = text.strip().lower()
+        if reminder_type in ("once", "one-time", "onetime", "one"):
+            state["data"]["is_recurring"] = False
+        elif reminder_type in ("recurring", "repeat", "repeating"):
+            state["data"]["is_recurring"] = True
+        else:
+            send_message(settings.bot_token, chat_id, "Please reply with either 'once' or 'recurring'.")
+            return {"status": "ok"}
+
+        send_message(settings.bot_token, chat_id, "When should I remind you? Reply with one of: minutes/hours/days")
+        state["step"] = 3
         return {"status": "ok"}
 
-    # Step 3: Get content and save
+    # Step 3: Get time unit
     if state["step"] == 3:
+        multiplier, unit = parse_time_unit(text)
+        if not multiplier or not unit:
+            send_message(settings.bot_token, chat_id, "Please reply with 'minutes', 'hours', or 'days'.")
+            return {"status": "ok"}
+
+        state["data"]["unit"] = unit
+        state["data"]["multiplier"] = multiplier
+        send_message(settings.bot_token, chat_id, f"How many {unit} until I should remind you?")
+        state["step"] = 4
+        return {"status": "ok"}
+
+    # Step 4: Get numeric amount
+    if state["step"] == 4:
+        try:
+            amount = int(text)
+            state["data"]["amount"] = amount
+            send_message(settings.bot_token, chat_id, "What message should I send when reminding you?")
+            state["step"] = 5
+        except ValueError:
+            send_message(settings.bot_token, chat_id, "Please enter a valid whole number for the amount.")
+        return {"status": "ok"}
+
+    # Step 5: Get content and save
+    if state["step"] == 5:
+        is_recurring = state["data"]["is_recurring"]
+        interval_minutes, next_trigger_at = calculate_next_trigger(
+            amount=state["data"]["amount"],
+            multiplier=state["data"]["multiplier"],
+            is_recurring=is_recurring,
+        )
+
         reminder = Reminders(
             reminder_name=state["data"]["name"],
             reminder_content=text,
-            interval_hours=state["data"]["interval_hours"],
-            next_trigger_at=datetime.utcnow() + timedelta(hours=state["data"]["interval_hours"]),
+            interval_minutes=interval_minutes,  # None for one-time
+            next_trigger_at=next_trigger_at,
+            chat_id=chat_id,
         )
         db.add(reminder)
         db.commit()
 
+        type_str = "recurring" if is_recurring else "one-time"
         send_message(
             settings.bot_token,
             chat_id,
-            f"✅ Reminder created!\n\n"
+            f"✅ {type_str.title()} reminder created!\n\n"
             f"Name: {reminder.reminder_name}\n"
-            f"In: {reminder.interval_hours} hours\n"
+            f"In: {state['data']['amount']} {state['data']['unit']}\n"
             f"Message: {reminder.reminder_content}",
         )
 

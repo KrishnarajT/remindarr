@@ -30,11 +30,15 @@ class Reminders(Base, table=True):
     reminder_name: str = Field(nullable=False, max_length=255)
     reminder_content: str = Field(nullable=False)
 
-    # Repeat interval (in hours)
-    interval_hours: int = Field(default=24, nullable=False, description="Repeat interval in hours")
+    # Repeat interval (in minutes)
+    # default to 24 hours expressed in minutes
+    interval_minutes: int = Field(default=0, nullable=False, description="Repeat interval in minutes")
 
     # Next time this reminder should trigger
     next_trigger_at: Optional[datetime] = Field(default=None, description="Next reminder trigger time")
 
     # Last time this reminder was triggered
     last_triggered_at: Optional[datetime] = Field(default=None, description="Last reminder trigger time")
+
+    # Chat id where the reminder should be sent. Optional to preserve existing rows.
+    chat_id: Optional[str] = Field(default=None, description="Telegram chat id to send the reminder to")

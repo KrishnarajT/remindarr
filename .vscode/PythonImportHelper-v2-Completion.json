@@ -124,6 +124,14 @@
         "documentation": {}
     },
     {
+        "label": "select",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
         "label": "Settings",
         "importPath": "app.constants.constants",
         "description": "app.constants.constants",
@@ -133,6 +141,14 @@
     },
     {
         "label": "Settings",
+        "importPath": "app.constants.constants",
+        "description": "app.constants.constants",
+        "isExtraImport": true,
+        "detail": "app.constants.constants",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
         "importPath": "app.constants.constants",
         "description": "app.constants.constants",
         "isExtraImport": true,
@@ -158,6 +174,15 @@
     },
     {
         "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
         "importPath": "datetime",
         "description": "datetime",
         "isExtraImport": true,
@@ -178,6 +203,62 @@
         "description": "datetime",
         "isExtraImport": true,
         "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
         "documentation": {}
     },
     {
@@ -286,6 +367,22 @@
         "documentation": {}
     },
     {
+        "label": "Reminders",
+        "importPath": "app.db.models",
+        "description": "app.db.models",
+        "isExtraImport": true,
+        "detail": "app.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "send_message",
+        "importPath": "app.services.telegram",
+        "description": "app.services.telegram",
+        "isExtraImport": true,
+        "detail": "app.services.telegram",
+        "documentation": {}
+    },
+    {
         "label": "send_message",
         "importPath": "app.services.telegram",
         "description": "app.services.telegram",
@@ -302,11 +399,68 @@
         "documentation": {}
     },
     {
+        "label": "logger",
+        "importPath": "app.utils.logging_utils",
+        "description": "app.utils.logging_utils",
+        "isExtraImport": true,
+        "detail": "app.utils.logging_utils",
+        "documentation": {}
+    },
+    {
+        "label": "parse_time_unit",
+        "importPath": "app.utils.time_utils",
+        "description": "app.utils.time_utils",
+        "isExtraImport": true,
+        "detail": "app.utils.time_utils",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_next_trigger",
+        "importPath": "app.utils.time_utils",
+        "description": "app.utils.time_utils",
+        "isExtraImport": true,
+        "detail": "app.utils.time_utils",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_next_trigger",
+        "importPath": "app.utils.time_utils",
+        "description": "app.utils.time_utils",
+        "isExtraImport": true,
+        "detail": "app.utils.time_utils",
+        "documentation": {}
+    },
+    {
+        "label": "parse_time_unit",
+        "importPath": "app.utils.time_utils",
+        "description": "app.utils.time_utils",
+        "isExtraImport": true,
+        "detail": "app.utils.time_utils",
+        "documentation": {}
+    },
+    {
         "label": "JSONResponse",
         "importPath": "fastapi.responses",
         "description": "fastapi.responses",
         "isExtraImport": true,
         "detail": "fastapi.responses",
+        "documentation": {}
+    },
+    {
+        "label": "asyncio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "asyncio",
+        "description": "asyncio",
+        "detail": "asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "config_db",
+        "importPath": "app.db",
+        "description": "app.db",
+        "isExtraImport": true,
+        "detail": "app.db",
         "documentation": {}
     },
     {
@@ -349,6 +503,22 @@
         "description": "app.router.notification_router",
         "isExtraImport": true,
         "detail": "app.router.notification_router",
+        "documentation": {}
+    },
+    {
+        "label": "start_worker",
+        "importPath": "app.services.notification_worker",
+        "description": "app.services.notification_worker",
+        "isExtraImport": true,
+        "detail": "app.services.notification_worker",
+        "documentation": {}
+    },
+    {
+        "label": "stop_worker",
+        "importPath": "app.services.notification_worker",
+        "description": "app.services.notification_worker",
+        "isExtraImport": true,
+        "detail": "app.services.notification_worker",
         "documentation": {}
     },
     {
@@ -532,6 +702,24 @@
         "documentation": {}
     },
     {
+        "label": "start_worker",
+        "kind": 2,
+        "importPath": "app.services.notification_worker",
+        "description": "app.services.notification_worker",
+        "peekOfCode": "def start_worker(app) -> None:\n    \"\"\"Start the reminder background task. Call from an async startup handler.\"\"\"\n    # create stop event and background task\n    app.state._reminder_stop = asyncio.Event()\n    app.state._reminder_task = asyncio.create_task(_reminder_loop(app))\nasync def stop_worker(app) -> None:\n    \"\"\"Signal the worker to stop and await its completion. Call from async shutdown handler.\"\"\"\n    if not hasattr(app.state, \"_reminder_stop\"):\n        return\n    app.state._reminder_stop.set()",
+        "detail": "app.services.notification_worker",
+        "documentation": {}
+    },
+    {
+        "label": "CHECK_INTERVAL_SECONDS",
+        "kind": 5,
+        "importPath": "app.services.notification_worker",
+        "description": "app.services.notification_worker",
+        "peekOfCode": "CHECK_INTERVAL_SECONDS = 60  # how often to poll for due reminders\nasync def _reminder_loop(app) -> None:\n    \"\"\"Background loop: query due reminders, send messages, reschedule.\"\"\"\n    engine = config_db.engine\n    # use a stop event stored on the app state to allow graceful shutdown\n    stop_event: asyncio.Event = app.state._reminder_stop\n    while not stop_event.is_set():\n        try:\n            now = datetime.datetime.utcnow()\n            # Use a DB session to select due reminders and lock rows to avoid double-processing",
+        "detail": "app.services.notification_worker",
+        "documentation": {}
+    },
+    {
         "label": "send_message",
         "kind": 2,
         "importPath": "app.services.telegram",
@@ -550,11 +738,29 @@
         "documentation": {}
     },
     {
+        "label": "parse_time_unit",
+        "kind": 2,
+        "importPath": "app.utils.time_utils",
+        "description": "app.utils.time_utils",
+        "peekOfCode": "def parse_time_unit(unit_text: str) -> Tuple[Optional[int], Optional[str]]:\n    \"\"\"Convert user input time unit to multiplier and normalized unit name.\"\"\"\n    unit = unit_text.strip().lower()\n    if unit in (\"m\", \"min\", \"mins\", \"minute\", \"minutes\"):\n        return 1, \"minutes\"\n    elif unit in (\"h\", \"hr\", \"hrs\", \"hour\", \"hours\"):\n        return 60, \"hours\"\n    elif unit in (\"d\", \"day\", \"days\"):\n        return 60 * 24, \"days\"\n    return None, None",
+        "detail": "app.utils.time_utils",
+        "documentation": {}
+    },
+    {
+        "label": "calculate_next_trigger",
+        "kind": 2,
+        "importPath": "app.utils.time_utils",
+        "description": "app.utils.time_utils",
+        "peekOfCode": "def calculate_next_trigger(\n    amount: int,\n    multiplier: int,\n    is_recurring: bool,\n) -> Tuple[Optional[int], datetime]:\n    \"\"\"Calculate interval_minutes and next_trigger_at for a reminder.\n    Args:\n        amount: The number of units (e.g. 5 hours = amount 5)\n        multiplier: Minutes per unit (e.g. 60 for hours)\n        is_recurring: If True, sets up recurring interval",
+        "detail": "app.utils.time_utils",
+        "documentation": {}
+    },
+    {
         "label": "app",
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = FastAPI()\nimport app.db.config_db as config_db\nfrom app.router.notification_router import router as notification_router\n@asynccontextmanager\nasync def lifespan(app: FastAPI):\n    config_db.init_db()\n    try:\n        yield\n    finally:\n        await config_db.engine.dispose()",
+        "peekOfCode": "app = FastAPI()\nimport app.db.config_db as config_db\nfrom app.router.notification_router import router as notification_router\nfrom app.services.notification_worker import start_worker, stop_worker\n@asynccontextmanager\nasync def lifespan(app: FastAPI):\n    # initialize DB\n    config_db.init_db()\n    # start background reminder worker\n    # start_worker creates an asyncio.Task; it must be called inside the running event loop",
         "detail": "main",
         "documentation": {}
     },
@@ -565,6 +771,33 @@
         "description": "main",
         "peekOfCode": "app = FastAPI(lifespan=lifespan)\n# CORS - allow your frontend (adjust origins)\napp.add_middleware(CORSMiddleware,\n                   allow_origins=[\"http://localhost:3000\", \"http://127.0.0.1:3000\", \"http://your-nas-ip:port\"],\n                   allow_credentials=True, allow_methods=[\"*\"], allow_headers=[\"*\"], )\n# Mount router under /api so frontend's API_BASE_URL + paths match\napp.include_router(notification_router, prefix=\"/api\")\n# basic healthcheck\n@app.get(\"/health\")\nasync def health_check():",
         "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "test_one_time_reminder",
+        "kind": 2,
+        "importPath": "test_time_utils",
+        "description": "test_time_utils",
+        "peekOfCode": "def test_one_time_reminder():\n    # One-time reminder in 30 minutes\n    interval, next_time = calculate_next_trigger(30, 1, is_recurring=False)\n    assert interval is None, \"One-time reminder should have no interval\"\n    assert isinstance(next_time, datetime), \"Should return a datetime\"\ndef test_recurring_reminder():\n    # Recurring reminder every 2 hours\n    interval, next_time = calculate_next_trigger(2, 60, is_recurring=True)\n    assert interval == 120, \"Should be 120 minutes (2 hours)\"\n    assert isinstance(next_time, datetime), \"Should return a datetime\"",
+        "detail": "test_time_utils",
+        "documentation": {}
+    },
+    {
+        "label": "test_recurring_reminder",
+        "kind": 2,
+        "importPath": "test_time_utils",
+        "description": "test_time_utils",
+        "peekOfCode": "def test_recurring_reminder():\n    # Recurring reminder every 2 hours\n    interval, next_time = calculate_next_trigger(2, 60, is_recurring=True)\n    assert interval == 120, \"Should be 120 minutes (2 hours)\"\n    assert isinstance(next_time, datetime), \"Should return a datetime\"\ndef test_parse_units():\n    # Test various unit inputs\n    assert parse_time_unit(\"minutes\") == (1, \"minutes\")\n    assert parse_time_unit(\"hours\") == (60, \"hours\")\n    assert parse_time_unit(\"days\") == (60 * 24, \"days\")",
+        "detail": "test_time_utils",
+        "documentation": {}
+    },
+    {
+        "label": "test_parse_units",
+        "kind": 2,
+        "importPath": "test_time_utils",
+        "description": "test_time_utils",
+        "peekOfCode": "def test_parse_units():\n    # Test various unit inputs\n    assert parse_time_unit(\"minutes\") == (1, \"minutes\")\n    assert parse_time_unit(\"hours\") == (60, \"hours\")\n    assert parse_time_unit(\"days\") == (60 * 24, \"days\")\n    assert parse_time_unit(\"invalid\") == (None, None)\nif __name__ == \"__main__\":\n    print(\"Running time utility tests...\")\n    print(\"1. Testing one-time reminder...\")\n    test_one_time_reminder()",
+        "detail": "test_time_utils",
         "documentation": {}
     }
 ]

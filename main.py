@@ -7,14 +7,23 @@ app = FastAPI()
 
 import app.db.config_db as config_db
 from app.router.notification_router import router as notification_router
+from app.services.notification_worker import start_worker, stop_worker
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # initialize DB
     config_db.init_db()
+
+    # start background reminder worker
+    # start_worker creates an asyncio.Task; it must be called inside the running event loop
+    start_worker(app)
+
     try:
         yield
     finally:
+        # stop worker gracefully then dispose DB engine
+        await stop_worker(app)
         await config_db.engine.dispose()
 
 
